@@ -1,53 +1,61 @@
-// server.js
 const express = require("express");
 const cors = require("cors");
-const fetch = require("node-fetch");
-require("dotenv").config();
+const bodyParser = require("body-parser");
+const { Configuration, OpenAIApi } = require("openai");
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 10000;
 
+require("dotenv").config();
+
+app.use(cors());
+app.use(bodyParser.json());
+
+// 🧠 Setup OpenAI
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+// ✅ GPT Route
 app.post("/chat", async (req, res) => {
-  const prompt = req.body.prompt;
+  const { prompt } = req.body;
+
   if (!prompt) {
-    return res.status(400).json({ error: "Must provide a prompt." });
+    return res.status(400).json({ error: "Missing prompt in request body" });
   }
 
   try {
-    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You're FitIQ, a chill but motivational gym expert. Help users with fitness advice, training tips, machines, macros, reps, and anything gym-related. Talk like a supportive gym friend, not a robot.",
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-      }),
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You're FitIQ, a motivational but chill gym expert. Help users with fitness advice, macros, machine guidance, and reps. Talk like a gym friend, not a robot.",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
     });
 
-    const data = await openaiRes.json();
-    const reply = data.choices?.[0]?.message?.content?.trim();
+    const reply = completion.data.choices[0].message.content;
     res.json({ reply });
   } catch (error) {
-    console.error("GPT Error:", error);
-    res.status(500).json({ error: "GPT request failed." });
+    console.error("GPT error:", error.response?.data || error.message);
+    res.status(500).json({ error: "GPT failed to respond" });
   }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
+// 🌐 Root Route (optional but helpful)
+app.get("/", (req, res) => {
+  res.send("FitIQ GPT backend is live ✅");
 });
+
+app.listen(PORT, () => {
+  console.log(`FitIQ GPT backend running on port ${PORT}`);
+});
+
 
