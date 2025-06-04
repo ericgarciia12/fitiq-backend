@@ -1,42 +1,53 @@
+// server.js
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const { OpenAI } = require("openai");
+const fetch = require("node-fetch");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+app.use(express.json());
 
 app.post("/chat", async (req, res) => {
-  const userMessage = req.body.message;
+  const prompt = req.body.prompt;
+  if (!prompt) {
+    return res.status(400).json({ error: "Must provide a prompt." });
+  }
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are FitIQ Chat, a chill but motivational gym expert. Help users with anything fitness: machines, splits, macros, reps, and goal tips. Sound like a cool gym bro, not a robot.",
-        },
-        {
-          role: "user",
-          content: userMessage,
-        },
-      ],
+    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You're FitIQ, a chill but motivational gym expert. Help users with fitness advice, training tips, machines, macros, reps, and anything gym-related. Talk like a supportive gym friend, not a robot.",
+          },
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      }),
     });
 
-    const reply = completion.choices?.[0]?.message?.content?.trim();
+    const data = await openaiRes.json();
+    const reply = data.choices?.[0]?.message?.content?.trim();
     res.json({ reply });
   } catch (error) {
-    console.error("❌ GPT Error:", error);
-    res.status(500).json({ reply: "❌ Something went wrong talking to GPT." });
+    console.error("GPT Error:", error);
+    res.status(500).json({ error: "GPT request failed." });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🔥 Server running on ${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
+
