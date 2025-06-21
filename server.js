@@ -1,23 +1,22 @@
+// server.js
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const { Configuration, OpenAIApi } = require("openai");
+const OpenAI = require("openai");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
-app.use(express.json());
 app.use(bodyParser.json());
 
-// 🧠 Setup OpenAI
-const configuration = new Configuration({
+// 🧠 Setup OpenAI (v4 syntax)
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
-// ✅ Chat Route (uses systemPrompt + user input)
+// ✅ GPT Route
 app.post("/chat", async (req, res) => {
   const { message, systemPrompt } = req.body;
 
@@ -26,7 +25,7 @@ app.post("/chat", async (req, res) => {
   }
 
   try {
-    const completion = await openai.createChatCompletion({
+    const chatResponse = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: systemPrompt },
@@ -34,17 +33,17 @@ app.post("/chat", async (req, res) => {
       ],
     });
 
-    const reply = completion.data.choices[0].message.content.trim();
+    const reply = chatResponse.choices[0]?.message?.content?.trim();
     res.json({ reply });
   } catch (error) {
-    console.error("❌ GPT error:", error.response?.data || error.message);
-    res.status(500).json({ error: "GPT failed to respond" });
+    console.error("❌ GPT error:", error);
+    res.status(500).json({ error: "GPT failed to respond." });
   }
 });
 
-// 🌐 Root Test Route
+// 🌐 Root Route
 app.get("/", (req, res) => {
-  res.send("✅ FitIQ GPT backend is live");
+  res.send("FitIQ GPT backend is live ✅");
 });
 
 app.listen(PORT, () => {
