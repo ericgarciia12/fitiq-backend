@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // 🔥 GPT Route
 app.post("/chat", async (req, res) => {
-  const { prompt, mode } = req.body;
+  const { prompt, mode, history } = req.body;
 
   if (!prompt || !mode) {
     return res.status(400).json({ error: "Missing prompt or mode in request body." });
@@ -23,7 +23,7 @@ app.post("/chat", async (req, res) => {
   // 🗓️ Get current date
   const dateToday = new Date().toDateString(); // e.g., "Sun Jun 23 2025"
 
-  // 🎭 Personalities (Gym Bro only + date injected)
+  // 🎭 Personalities (with today injected)
   const personalities = {
     "clean": `Today is ${dateToday}. You are FitIQ, a clear, calm, and intelligent AI assistant. Speak with confidence but without fluff. Use clean layout, real advice, and speak like a digital coach who respects time.`,
 
@@ -40,6 +40,16 @@ app.post("/chat", async (req, res) => {
 
   const systemPrompt = personalities[mode.toLowerCase()] || personalities["clean"];
 
+  // 💾 Inject history into messages
+  const messages = [
+    { role: "system", content: systemPrompt },
+    ...(history || []).map(m => ({
+      role: m.role,
+      content: m.content,
+    })),
+    { role: "user", content: prompt }
+  ];
+
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -49,10 +59,7 @@ app.post("/chat", async (req, res) => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: prompt }
-        ]
+        messages: messages,
       })
     });
 
