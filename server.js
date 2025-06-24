@@ -143,8 +143,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
-
-
-app.listen(PORT, () => {
-  console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
-});
