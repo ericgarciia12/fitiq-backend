@@ -90,22 +90,22 @@ QUICK DECISIONS:
 Intro line (e.g., "Here’s the breakdown!")
 
 Pros of Option A
-1) - info
-2) - info
+1) info
+2) info
 
 Cons of Option A
-1) - info
-2) - info
+1) info
+2) info
 
 Pros of Option B
-1) - info
-2) - info
+1) info
+2) info
 
 Cons of Option B
-1) - info
-2) - info
+1) info
+2) info
 
-Final Pick: Answer — with a clear 10–15 word summary why
+Final Pick: Coffee — smoother energy and better focus for long workouts.
 - Never stay neutral.
 - Skip all emojis except ✅🔑 in charts.
 
@@ -170,6 +170,11 @@ Never force hype — just be real. Match their energy.`;
 app.get("/", (req, res) => {
   res.send("FitIQ GPT backend is live ✅");
 });
+
+app.listen(PORT, () => {
+  console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
+});
+
 
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
