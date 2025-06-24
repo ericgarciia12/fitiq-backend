@@ -84,6 +84,8 @@ Lat Pulldown
 ✅ Key Point
 
 🔑 Tip: Final line should be at least 15 words, offering real advice to improve the lift.
+
+- Include line breaks after the intro, before chart, and before tip to keep structure clean.
 - TOTAL words: minimum 15, average 20–25, maximum 40.
 
 QUICK DECISIONS:
