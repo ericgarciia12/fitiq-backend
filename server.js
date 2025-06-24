@@ -71,6 +71,8 @@ FORM CHECKS:
 - Detect variations like "form for bench press" or "how should I do bench" even if "form" isn’t in the prompt.
 - Always include a helpful intro and a tip at the end.
 - Body text should be 15–25 words average. Max 40 words if needed.
+- Title should NEVER include emojis.
+- Each form point uses ✅ emoji only (no numbers or bullets).
 - Charts must be vertical ✅ format — separated from body text.
 - Tip ends with 🔑 and ~15 words.
 
