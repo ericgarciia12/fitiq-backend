@@ -33,19 +33,18 @@ app.post("/chat", async (req, res) => {
   ];
 
   try {
-   const response = await fetch("https://api.openai.com/v1/chat/completions", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-  },
-  body: JSON.stringify({
-    model: "gpt-3.5-turbo",
-    messages,
-    stream: false, // 💡 this disables streaming to avoid "premature close" errors
-  }),
-});
-
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages,
+        stream: false, // disables streaming to prevent premature close errors
+      }),
+    });
 
     const data = await response.json();
 
@@ -176,10 +175,6 @@ Never force hype — just be real. Match their energy.`;
 
 app.get("/", (req, res) => {
   res.send("FitIQ GPT backend is live ✅");
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
 
 app.listen(PORT, () => {
