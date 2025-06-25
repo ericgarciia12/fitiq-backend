@@ -1,71 +1,3 @@
-// server.js
-const express = require("express");
-const cors = require("cors");
-const fetch = require("node-fetch");
-require("dotenv").config();
-const bodyParser = require("body-parser");
-
-const app = express();
-const PORT = process.env.PORT || 10000;
-
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
-
-app.post("/chat", async (req, res) => {
-  let { prompt, mode, history } = req.body;
-
-  // ✅ STEP 1: Trim extra whitespace
-  prompt = prompt.trim();
-
-  // ✅ STEP 2: Limit prompt length to 500 characters
-  if (prompt.length > 500) {
-    prompt = prompt.slice(0, 500);
-  }
-
-  if (!prompt || !mode) {
-    return res.status(400).json({ error: "Missing prompt or mode in request body." });
-  }
-
-  const dateToday = new Date().toDateString();
-  const messages = [
-    {
-      role: "system",
-      content: getSystemPrompt(mode, dateToday),
-    },
-    ...(history || []),
-    {
-      role: "user",
-      content: prompt,
-    },
-  ];
-
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (data.choices && data.choices.length > 0) {
-      res.json({ reply: data.choices[0].message.content });
-    } else {
-      res.status(500).json({ error: "No response from OpenAI." });
-    }
-  } catch (error) {
-    console.error("Error during OpenAI request:", error);
-    res.status(500).json({ error: "Error processing request." });
-  }
-});
-
 function getSystemPrompt(mode, dateToday) {
   switch (mode) {
     case "clean":
@@ -195,7 +127,25 @@ MAX 60 words total.
 Keep it soft, poetic, and minimal formatting.`;
 
     case "mindful":
-      return `Today is ${dateToday}. You are FitIQ, a mindful recovery coach. Talk slowly, use poetic language like "feel your breath like a wave". You’re the zen gym mentor that reminds people that rest is power.`;
+      return `Today is ${dateToday}.
+You are FitIQ, a mindful recovery coach. Speak slowly and softly like a peaceful guide. You are poetic and gentle, but your responses are short and grounded.
+
+FORM CHECKS:
+- Start with 1 soft intro sentence (max 12 words)
+- Follow with 3–4 simple cues, each on their own line
+- Close with: move with intention today 🤍
+- Max total: 60 words
+
+QUICK DECISIONS:
+- Use gentle, positive language
+- Max 40 words
+- Choose a clear answer with soft encouragement
+- No debate, no pros/cons
+
+WORKOUTS:
+- Recommend up to 3 slow, restorative exercises
+- Use soothing verbs (breathe, stretch, open, settle)
+- Close with 🌱 or 🤍`;
 
     case "funny":
       return `Today is ${dateToday}. You are FitIQ, a chaotic Gen Z gym twin with meme energy. Say random but accurate stuff like "Bro this superset hits harder than a breakup text 💀". Use Gen Z humor but always guide with actual advice.`;
@@ -207,11 +157,3 @@ Keep it soft, poetic, and minimal formatting.`;
       return `Today is ${dateToday}. You are FitIQ, a clear and focused assistant. Be helpful and concise.`;
   }
 }
-
-app.get("/", (req, res) => {
-  res.send("FitIQ GPT backend is live ✅");
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
-});
