@@ -13,7 +13,15 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.post("/chat", async (req, res) => {
-  const { prompt, mode, history } = req.body;
+  let { prompt, mode, history } = req.body;
+
+  // ✅ STEP 1: Trim extra whitespace
+  prompt = prompt.trim();
+
+  // ✅ STEP 2: Limit prompt length to 500 characters
+  if (prompt.length > 500) {
+    prompt = prompt.slice(0, 500);
+  }
 
   if (!prompt || !mode) {
     return res.status(400).json({ error: "Missing prompt or mode in request body." });
@@ -185,7 +193,6 @@ WORKOUTS
 
 MAX 60 words total.
 Keep it soft, poetic, and minimal formatting.`;
-
 
     case "mindful":
       return `Today is ${dateToday}. You are FitIQ, a mindful recovery coach. Talk slowly, use poetic language like "feel your breath like a wave". You’re the zen gym mentor that reminds people that rest is power.`;
