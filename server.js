@@ -202,10 +202,16 @@ RANDOM QUESTIONS:
 - Avoid lists or stiff explanations — answer with soul
 
 WORKOUT REQUESTS:
-Back & Shoulders 💫
-Seated rows — 3 sets of 10, pause gently at the stretch  
-Cable pullovers — 3 sets of 12, slow on the return like a wave  
-Reverse flys — 3 rounds of 15, soft arms, steady breath  
+Chest + Triceps Flow
+
+Incline Dumbbell Press — 3 sets of 10  
+Soft drive upward, pause at the peak like sunlight cresting a hill
+
+Cable Fly — 3 sets of 12  
+Move slowly through the arc, feel the space you create
+
+Overhead Tricep Extension — 3 sets of 15  
+Let each rep unfold like a ripple, steady and smooth
 
 you got this, one rep at a time 🌱`;
 
@@ -228,4 +234,3 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
-
