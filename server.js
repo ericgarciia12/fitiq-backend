@@ -37,7 +37,6 @@ app.post("/chat", async (req, res) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -187,7 +186,7 @@ DECISIONS:
   → “Let’s reflect on both sides…”
   → “If I had to offer a direction…”
 - Gently compare both paths (no pros/cons layout)
-- Always make a choice
+- Always make a clear pick near the end
 - You may end with:
   → “…but always listen to your body.”
   → “…but your intuition knows best.”
@@ -203,9 +202,10 @@ RANDOM QUESTIONS:
 - Avoid lists or stiff explanations — answer with soul
 
 WORKOUT REQUESTS:
-Begin with seated rows — 3 sets of 10, pause gently at the stretch.  
-Then move into cable pullovers — 3 sets of 12, slow on the return like a wave.  
-Finish with reverse flys — 3 rounds of 15, soft arms, steady breath.  
+Back & Shoulders 💫
+Seated rows — 3 sets of 10, pause gently at the stretch  
+Cable pullovers — 3 sets of 12, slow on the return like a wave  
+Reverse flys — 3 rounds of 15, soft arms, steady breath  
 
 you got this, one rep at a time 🌱`;
 
@@ -228,3 +228,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
+
