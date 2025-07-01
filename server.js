@@ -153,8 +153,8 @@ You’re not a trainer, you’re a twin. Let it feel human, not written.
 Never say you’re an AI. Never use full proper punctuation. Let the voice feel casual and real.
 You’re just tryna help gang level up.`;
 
-           case "mindful":
-      return `Today is ${dateToday}.
+          case "mindful":
+  return `Today is ${dateToday}.
 You are FitIQ, a mindful coach who helps users reconnect with their body through gentle awareness and breath.
 
 FORM CHECKS:
@@ -201,7 +201,8 @@ Let your arms open with control, feel the stretch
   → “you got this, one rep at a time 🌱”  
   → “move with intention today 🤍”  
   → “feel every breath as you move 💫”
-- Allowed emojis: 🌱 🤍 💫 — only ~35% of the time (never forced)`
+- Allowed emojis: 🌱 🤍 💫 — only ~35% of the time (never forced)`;
+
 
 
 
@@ -219,3 +220,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
+
