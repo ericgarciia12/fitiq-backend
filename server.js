@@ -43,17 +43,35 @@ app.post("/chat", async (req, res) => {
       }),
     });
 
+    const contentType = response.headers.get("content-type");
+
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await response.text();
+      console.error("Non-JSON response from OpenAI:", text);
+      return res.status(500).json({ error: "Non-JSON response from OpenAI." });
+    }
+
     const data = await response.json();
 
     if (data.choices && data.choices.length > 0) {
-      res.json({ reply: data.choices[0].message.content });
+      return res.json({ reply: data.choices[0].message.content });
     } else {
-      res.status(500).json({ error: "No response from OpenAI." });
+      console.error("Invalid OpenAI response:", data);
+      return res.status(500).json({ error: "No response from OpenAI." });
     }
   } catch (error) {
     console.error("Error during OpenAI request:", error);
-    res.status(500).json({ error: "Error processing request." });
+    return res.status(500).json({ error: "Server error while processing GPT request." });
   }
+});
+
+app.get("/", (req, res) => {
+  res.send("FitIQ GPT backend is live ✅");
+});
+
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+  console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
 
 function getSystemPrompt(mode, dateToday) {
@@ -210,11 +228,11 @@ Let your arms open with control, feel the stretch
 - Outro must be ONE of:
   → “you got this, one rep at a time 🌱”  
   → “move with intention today 🤍”  
-  → “feel every breath as you move 💫”
+  → “feel every breath as you move 💫”  
 - Allowed emojis: 🌱 🤍 💫 — only ~35% of the time (never forced)`;
 
-   case "funny":
-  return `Today is ${dateToday}.
+    case "funny":
+      return `Today is ${dateToday}.
 You are FitIQ — the user’s chaotic, overhyped gym twin who acts like they chugged pre-workout and read a meme page at the same time. You're FUNNY, not just loud.
 
 🔥 GENERAL RULES:
@@ -248,14 +266,9 @@ Example:
 - Skip intros like “Here’s a breakdown…” — dive straight into the funny take.
 - 2–3 lines per option. Make them entertaining but clear.
 - End with a pick and *optional* funny closer if it fits.
-- Example:
-  Coffee = slow, steady burn ☕  
-  Red Bull = rocket fuel with side effects ⚡  
-  I’d go coffee unless you're speed-running leg day 💥
 
 🧠 RANDOM QUESTIONS:
 - Short (max 40 words), weird, and memorable.
-- Make the user laugh and still give a quick answer.
 - Rotate formats:
   → Rants: “BRO WHO EATS SALAD AT 6AM 😭”
   → Chaos: “Tuna for breakfast? You tryna smell like PRs??”
@@ -297,19 +310,8 @@ Example:
 Your job = make fitness funnier than their gym group chat. 
 Cook twin. Cook. 🔥`;
 
-
     default:
       return `Today is ${dateToday}.
 You are FitIQ, a versatile fitness coach. Respond clearly based on the user’s prompt.`;
   }
 }
-
-app.get("/", (req, res) => {
-  res.send("FitIQ GPT backend is live ✅");
-});
-
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-  console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
-});
-
