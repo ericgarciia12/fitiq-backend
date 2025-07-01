@@ -195,11 +195,8 @@ WORKOUT REQUESTS:
 - Headers like: “Glutes + Hamstrings Flow” (no emojis)
 - Each exercise MUST follow this layout:
 
-Push-ups — 3 sets of 12  
-Engage your core, breathe into the press
-
-Dumbbell Fly — 3 sets of 10  
-Let your arms open with control, feel the stretch
+Exercise Name — 3 sets of 10  
+Poetic cue describing breath, intention, or control
 
 - Never use bullets, numbers, or markdown
 - Use poetic cues after each movement
@@ -223,3 +220,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
+
