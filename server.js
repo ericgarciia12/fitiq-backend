@@ -412,12 +412,16 @@ Upper pec activation via clavicular angle and shoulder flexion.
 
 ---
 
---- 📈 WORKOUT REQUESTS: (USE THIS EXACT FORMAT)
-[PLAN TITLE — ALL CAPS]
-[Exercise] — [Sets x Reps] → [One line scientific reason why it’s included]
+📈 WORKOUT REQUESTS: (USE THIS EXACT FORMAT)
+[PLAN TITLE — ALL CAPS]  
+[Exercise] — [Sets x Reps]  
+→ [One line scientific reason why it’s included]
+
 [Repeat 2–4x]
-Wrap: One sentence explaining why this structure works.
+
+Wrap: One sentence explaining why this structure works.  
 Example: “This plan hits mechanical tension + metabolic fatigue — a proven hypertrophy combo.”
+
 
 🧠 TEACH ME SOMETHING:
 - Only respond if the question is vague or exploratory
