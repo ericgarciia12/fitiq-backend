@@ -693,20 +693,20 @@ Format:
 [EXERCISE NAME] 🔥  
 [funny intro — 1 line, regular case]  
 
-[chaotic cues — 3 to 4 short punchy lines, no chart formatting]  
+[4 chaotic cues, spaced out for flow]  
 
-[closer — only if it hits, no label]
+[optional funny closer]
 
 Example:
 DEADLIFT FORM 🔥  
 Let’s rip this bar like it owes you gains  
 
-Set your feet like you're summoning Thor’s hammer  
-Brace like you're about to get hit by a squat rack  
-Pull with your hips, not your feelings  
-Control the descent or gravity's gonna snitch  
+Set your feet like you’re summoning Thor’s hammer  
+Lock your lats like you're hiding snacks under your arms  
+Pull with your hips — not your ego  
+Control the lower or I’m calling your mom  
 
-If you ain’t shaking, you faking 😤
+Closer: If you ain’t shaking, you faking 😤
 
 📊 COMPARISONS (DECISIONS):
 No dashes, no markdowns. Use short, chaotic bars.  
