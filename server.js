@@ -8,14 +8,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());``
+app.use(bodyParser.json());
 
-app.post("/chat", async (req, res) => {
-  const { prompt, mode, history } = req.body;
-
-  if (!prompt || !mode) {
-    return res.status(400).json({ error: "Missing prompt or mode in request body." });
-  }
+// ✅ GPT SPLIT GENERATION — WORKOUT PLAN
 app.post("/generate-split", async (req, res) => {
   const userInfo = req.body;
 
@@ -33,7 +28,7 @@ app.post("/generate-split", async (req, res) => {
 - Experience: ${userInfo.experience}
 - Rest Preference: ${userInfo.restPref}
 
-Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`;
+Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -59,6 +54,7 @@ Return it as a JSON object with keys for each day (Monday–Sunday). Each day sh
       return res.status(500).json({ error: "No content received from GPT." });
     }
 
+    // Some replies are wrapped in ```json so we clean them
     let parsed;
     try {
       parsed = JSON.parse(reply);
@@ -74,6 +70,13 @@ Return it as a JSON object with keys for each day (Monday–Sunday). Each day sh
   }
 });
 
+// 🧠 PERSONALITIES CHAT ROUTE (still here if you need it)
+app.post("/chat", async (req, res) => {
+  const { prompt, mode, history } = req.body;
+
+  if (!prompt || !mode) {
+    return res.status(400).json({ error: "Missing prompt or mode in request body." });
+  }
 
   const dateToday = new Date().toDateString();
   const messages = [
@@ -131,6 +134,17 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
+
+function getSystemPrompt(mode, dateToday) {
+  switch (mode) {
+    case "trainer":
+      return `You're a fitness coach responding on ${dateToday}.`;
+    case "nutritionist":
+      return `You're a diet expert replying on ${dateToday}.`;
+    default:
+      return `You are FitIQ GPT. Respond accordingly.`;
+  }
+}
 
 function getSystemPrompt(mode, dateToday) {
   switch (mode) {
