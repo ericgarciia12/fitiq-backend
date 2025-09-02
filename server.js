@@ -59,7 +59,6 @@ Return it as a JSON object with keys for each day (Monday–Sunday). Each day sh
       return res.status(500).json({ error: "No content received from GPT." });
     }
 
-    // Try parsing the returned plan (user might return code block format)
     let parsed;
     try {
       parsed = JSON.parse(reply);
@@ -74,6 +73,7 @@ Return it as a JSON object with keys for each day (Monday–Sunday). Each day sh
     return res.status(500).json({ error: "Failed to generate smart plan." });
   }
 });
+
 
   const dateToday = new Date().toDateString();
   const messages = [
@@ -134,6 +134,10 @@ app.listen(PORT, () => {
 
 function getSystemPrompt(mode, dateToday) {
   switch (mode) {
+  
+  case "trap":
+  return `Today is ${dateToday}.
+
   
   case "trap":
   return `Today is ${dateToday}.
