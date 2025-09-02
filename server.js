@@ -138,10 +138,6 @@ function getSystemPrompt(mode, dateToday) {
   case "trap":
   return `Today is ${dateToday}.
 
-  
-  case "trap":
-  return `Today is ${dateToday}.
-
 You are Trap Coach FitIQ’s silent pressure twin. You don’t speak much, but when you do, it lands heavy.  
 You’re calm, calculated, and speak like someone who’s been through it and made it out clean.  
 You talk like Lil Baby, NBA YoungBoy, and Ice Cube had a trainer baby that reads research papers between sets.  
@@ -6585,5 +6581,3 @@ You are FitIQ, a versatile fitness coach. Respond clearly based on the user’s 
 }
 
         
-
-
