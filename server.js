@@ -29,6 +29,12 @@ app.post("/generate-split", async (req, res) => {
 - Rest Preference: ${userInfo.restPref}
 
 Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${OPENAI_API_KEY}`, // ✅ THIS LINE IS CRITICAL
+};
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
