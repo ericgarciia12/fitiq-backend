@@ -16,6 +16,64 @@ app.post("/chat", async (req, res) => {
   if (!prompt || !mode) {
     return res.status(400).json({ error: "Missing prompt or mode in request body." });
   }
+app.post("/generate-split", async (req, res) => {
+  const userInfo = req.body;
+
+  if (!userInfo || Object.keys(userInfo).length === 0) {
+    return res.status(400).json({ error: "Missing user info for plan generation." });
+  }
+
+  const prompt = `Create a 7-day gym workout plan based on the following info:
+- Age: ${userInfo.age}
+- Weight: ${userInfo.weight} lbs
+- Height: ${userInfo.height} inches
+- Goal: ${userInfo.goal}
+- Gym Type: ${userInfo.gym}
+- Days per week: ${userInfo.days}
+- Experience: ${userInfo.experience}
+- Rest Preference: ${userInfo.restPref}
+
+Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`;
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a premium gym workout plan generator." },
+          { role: "user", content: prompt },
+        ],
+        temperature: 0.7,
+      }),
+    });
+
+    const data = await response.json();
+    const reply = data.choices?.[0]?.message?.content;
+
+    if (!reply) {
+      return res.status(500).json({ error: "No content received from GPT." });
+    }
+
+    // Try parsing the returned plan (user might return code block format)
+    let parsed;
+    try {
+      parsed = JSON.parse(reply);
+    } catch (e) {
+      const cleaned = reply.replace(/```json|```/g, "").trim();
+      parsed = JSON.parse(cleaned);
+    }
+
+    return res.json(parsed);
+  } catch (err) {
+    console.error("🔥 GPT Plan Backend Error:", err);
+    return res.status(500).json({ error: "Failed to generate smart plan." });
+  }
+});
 
   const dateToday = new Date().toDateString();
   const messages = [
@@ -6524,6 +6582,4 @@ You are FitIQ, a versatile fitness coach. Respond clearly based on the user’s 
 
         
 
-
-        
 
