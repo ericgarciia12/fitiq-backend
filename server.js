@@ -28,14 +28,14 @@ app.post("/generate-split", async (req, res) => {
 - Experience: ${userInfo.experience}
 - Rest Preference: ${userInfo.restPref}
 
-Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`;
+Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // ✅ safe + matches Render config
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -63,70 +63,12 @@ Return it as a JSON object with keys for each day (Monday–Sunday). Each day sh
       parsed = JSON.parse(cleaned);
     }
 
-    // ✅ Inject rotating recovery vaults
-    const recoveryVaults = [
-      {
-        title: "Parasympathetic Reset",
-        science: "Slows the nervous system to promote recovery.",
-        type: "Breathing + Stretching",
-      },
-      {
-        title: "Mobility Reset",
-        science: "Releases joint tension and enhances range.",
-        type: "Deep Stretching",
-      },
-      {
-        title: "Circulation Boost",
-        science: "Increases blood flow and aids muscle repair.",
-        type: "Zone 2 Cardio + Sauna",
-      },
-      {
-        title: "Active Flow",
-        science: "Gentle movement to flush fatigue.",
-        type: "Yoga or light bodyweight work",
-      },
-      {
-        title: "Lymphatic Drain",
-        science: "Flushes waste and restores balance.",
-        type: "Walking + Vibration",
-      },
-      {
-        title: "Myofascial Recovery",
-        science: "Releases knots and fascia tension.",
-        type: "Foam roll + stretch combo",
-      },
-      {
-        title: "Mind-Body Reset",
-        science: "Aligns physical and emotional recovery.",
-        type: "Nature walk + meditation",
-      },
-    ];
-
-    let vaultIndex = 0;
-
-    for (const day of Object.keys(parsed)) {
-      const workout = parsed[day];
-
-      const isRestDay =
-        workout?.title?.toLowerCase()?.includes("rest") ||
-        !workout?.exercises?.length;
-
-      if (isRestDay) {
-        parsed[day] = {
-          rest: true,
-          recovery: recoveryVaults[vaultIndex % recoveryVaults.length],
-        };
-        vaultIndex++;
-      }
-    }
-
     return res.json(parsed);
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
   }
 });
-
 
 // 🧠 PERSONALITIES CHAT ROUTE (still here if you need it)
 app.post("/chat", async (req, res) => {
