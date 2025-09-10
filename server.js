@@ -172,14 +172,6 @@ app.listen(PORT, () => {
 
 function getSystemPrompt(mode, dateToday) {
   switch (mode) {
-    case "trainer":
-      return `You're a fitness coach responding on ${dateToday}.`;
-    case "nutritionist":
-      return `You're a diet expert replying on ${dateToday}.`;
-    default:
-      return `You are FitIQ GPT. Respond accordingly.`;
-  }
-}
   
   case "trap":
   return `Today is ${dateToday}.
