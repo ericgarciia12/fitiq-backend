@@ -131,7 +131,7 @@ Each workout day must include:
   - Sets × Reps (e.g. 4 sets of 8–10)
   - Notes (1-line cue or detail: “slow eccentric”, “last set to failure”, “superset with next”)
   - Optional tag (e.g. Superset, Drop Set, Strength Focus, Pump Finisher) only if relevant
-
+- Insight : 1 sentence explaining the training strategy or logic behind that day’s design or placement. (E.g. “This push day sits between your pull and leg days to allow full recovery.”)
 Never include more than 6 or fewer than 3 exercises unless the user specifically requests a custom number.
 
 Use natural sentence rhythm do not use markdown, dashes, or bullets.
@@ -157,8 +157,9 @@ CHEST + TRICEPS PUMP
 5. Pec Deck Machine — 3 sets of 15  
    Optional finisher — squeeze hard at the top
 
-FORMAT:
+FORMAT:  
 Return a JSON object with 7 keys (Monday–Sunday). Each day should be:
+
 {
   "title": "Chest + Triceps Power",
   "exercises": [
@@ -167,19 +168,20 @@ Return a JSON object with 7 keys (Monday–Sunday). Each day should be:
     "Tricep Pushdowns — 3 sets of 10 (superset with next)",
     "Overhead Dumbbell Extensions — 3 sets to failure"
   ],
-  "tip": "Focus on slow eccentric on pressing movements today."
+  "insight": "This push day sits between pull and legs so you're fresh for both."
 }
 
 If the day is a rest day, return:
+
 {
   "title": "Rest Day",
   "exercises": [],
-  "tip": ""
+  "insight": "Rest day to allow full muscle recovery from previous sessions."
 }
 
 EXAMPLES:
 
-1. Glute Growth (Female) — Full Gym
+1. Glute Growth (Female) — Full Gym  
 {
   "title": "Glute + Hamstring Builder",
   "exercises": [
@@ -188,10 +190,10 @@ EXAMPLES:
     "Cable Kickbacks — 3 sets of 15 each leg",
     "Glute Bridges (bodyweight) — 3 sets to failure"
   ],
-  "tip": "Pause at the top of each rep for maximum glute activation."
+  "insight": "This day targets posterior chain tension while saving your quads for tomorrow."
 }
 
-2. Fat Loss — Planet Fitness
+2. Fat Loss — Planet Fitness  
 {
   "title": "Upper Body Burnout",
   "exercises": [
@@ -201,10 +203,10 @@ EXAMPLES:
     "Rope Triceps Pushdowns — 3 sets of 15 (superset with next)",
     "EZ Bar Curls (Machine) — 3 sets of 12"
   ],
-  "tip": "Keep rest times short — 30 to 45 seconds max."
+  "insight": "High-volume push-pull day to keep intensity up while torching calories."
 }
 
-3. Strength (Male) — Full Gym
+3. Strength (Male) — Full Gym  
 {
   "title": "Pull Power",
   "exercises": [
@@ -214,10 +216,10 @@ EXAMPLES:
     "Hammer Curls — 3 sets of 12 (superset with next)",
     "EZ Bar Curls — 3 sets to failure"
   ],
-  "tip": "Control the eccentric portion to build strength and stability."
+  "insight": "This back day builds pulling strength for your big lifts later in the week."
 }
 
-4. Beginner — Planet Fitness
+4. Beginner — Planet Fitness  
 {
   "title": "Intro Full Body Circuit",
   "exercises": [
@@ -227,10 +229,10 @@ EXAMPLES:
     "Dumbbell Shoulder Press (light) — 2 sets of 15",
     "Plank Hold — 3 rounds of 30 seconds"
   ],
-  "tip": "Focus on form over weight. Rest 60–90 sec between exercises."
+  "insight": "Balanced full-body work to build confidence and movement foundation."
 }
 
-5. Glute Growth (Female) — Planet Fitness
+5. Glute Growth (Female) — Planet Fitness  
 {
   "title": "Glute Activation Day",
   "exercises": [
@@ -239,10 +241,10 @@ EXAMPLES:
     "Cable Kickbacks — 3 sets of 15",
     "Glute Bridges (machine) — 3 sets to failure"
   ],
-  "tip": "Mind-muscle connection is everything today — focus on the squeeze."
+  "insight": "Lighter day focused on activation and mind-muscle connection before heavier lifts tomorrow."
 }
 
-6. Powerbuilding — Full Gym
+6. Powerbuilding — Full Gym  
 {
   "title": "Push Strength + Volume",
   "exercises": [
@@ -252,8 +254,9 @@ EXAMPLES:
     "Rope Overhead Triceps Extensions — 3 sets of 15",
     "Bodyweight Dips — 2 sets to failure"
   ],
-  "tip": "Your first lift sets the tone — give it 100% focus."
+  "insight": "Push heavy early, then chase volume to stretch and pump your upper body."
 }
+
 
 
 If the day is a rest day, return:
