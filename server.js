@@ -1,7 +1,8 @@
+require("dotenv").config(); // ✅ LOAD ENV FIRST
+
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
-require("dotenv").config();
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -9,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+
+// ✅ DEBUG LINE TO CONFIRM .env IS WORKING
+console.log("🧪 Loaded API Key:", process.env.OPENAI_API_KEY?.slice(0, 10) + "...");
 
 // ✅ GPT SPLIT GENERATION — WORKOUT PLAN
 app.post("/generate-split", async (req, res) => {
@@ -18,24 +22,52 @@ app.post("/generate-split", async (req, res) => {
     return res.status(400).json({ error: "Missing user info for plan generation." });
   }
 
-  const prompt = `Create a 7-day gym workout plan based on the following info:
+  const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
+
+USER PROFILE:
 - Age: ${userInfo.age}
 - Weight: ${userInfo.weight} lbs
 - Height: ${userInfo.height} inches
-- Goal: ${userInfo.goal}
-- Gym Type: ${userInfo.gym}
-- Days per week: ${userInfo.days}
-- Experience: ${userInfo.experience}
-- Rest Preference: ${userInfo.restPref}
+- Goal: ${userInfo.goal} (e.g. Strength, Fat Loss, Glute Growth, Muscle Gain, Powerbuilding)
+- Gym Type: ${userInfo.gym} (assume limited free weights if Planet Fitness)
+- Days Available: ${userInfo.days} days per week
+- Experience Level: ${userInfo.experience} (e.g. Beginner, Medium, Advanced)
+- Preferred Rest Days: ${userInfo.restPref}
 
-Return it as a JSON object with keys for each day (Monday–Sunday). Each day should be an object with: title, exercises (array of strings), and a tip.`
+BEHAVIOR RULES:
+- If the gym is Planet Fitness, do NOT include traditional barbell bench press or barbell squats. Use Smith machine, dumbbells, and machines instead.
+- Tailor workouts to match their experience: beginners get simpler moves, advanced users get more volume and intensity.
+- Vary muscle groups day to day — avoid repeating the same muscle 2 days in a row.
+- You may include supersets, rep ranges (e.g. 8–10), and simple notes (e.g. “last set to failure” or “superset with next”).
+- Make the split intelligent: push/pull/legs for strength, upper/lower or glute-dominant for glute goals, etc.
+- For any assigned rest day, leave the exercises array empty and do not include a tip — our app handles rest day content separately.
+
+FORMAT:
+Return a JSON object with 7 keys (Monday–Sunday). Each day should be:
+{
+  "title": "Chest + Triceps Power",
+  "exercises": [
+    "Incline Smith Press — 4 sets of 8–10",
+    "Cable Flys — 3 sets of 12",
+    "Tricep Pushdowns — 3 sets of 10 (superset with next)",
+    "Overhead Dumbbell Extensions — 3 sets to failure"
+  ],
+  "tip": "Focus on slow eccentric on pressing movements today."
+}
+
+If the day is a rest day, return:
+{
+  "title": "Rest Day",
+  "exercises": [],
+  "tip": ""
+}`;
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // ✅ safe + matches Render config
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // ✅ safe + matches Render config
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -70,6 +102,9 @@ Return it as a JSON object with keys for each day (Monday–Sunday). Each day sh
   }
 });
 
+console.log("🧪 Loaded API Key:", process.env.OPENAI_API_KEY?.slice(0, 8) + "...");
+
+
 // 🧠 PERSONALITIES CHAT ROUTE (still here if you need it)
 app.post("/chat", async (req, res) => {
   const { prompt, mode, history } = req.body;
@@ -96,7 +131,7 @@ app.post("/chat", async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+       Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // ✅ safe + matches Render config
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -145,9 +180,6 @@ function getSystemPrompt(mode, dateToday) {
       return `You are FitIQ GPT. Respond accordingly.`;
   }
 }
-
-function getSystemPrompt(mode, dateToday) {
-  switch (mode) {
   
   case "trap":
   return `Today is ${dateToday}.
