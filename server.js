@@ -34,6 +34,11 @@ USER PROFILE:
 - Experience Level: ${userInfo.experience} (e.g. Beginner, Medium, Advanced)
 - Preferred Rest Days: ${userInfo.restPref}
 
+Each workout day must include a field called "insight" with one short sentence (max 20 words). It should explain the training logic, sequence rationale, recovery strategy, or gym plan reasoning behind the workout — no generic tips.
+
+Use a calm, sharp tone. No emojis, no hype, no coaching. Just smart, clean reasoning that explains why the workout is structured that way.
+
+
 BEHAVIOR RULES:
 
 - If the gym is Planet Fitness, do NOT include traditional barbell bench press or barbell squats. Use Smith machine, dumbbells, and machines instead.
