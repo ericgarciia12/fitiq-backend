@@ -33,30 +33,87 @@ USER PROFILE:
 - Gym Type: ${userInfo.gym} (assume limited free weights if Planet Fitness)
 - Days Available: ${userInfo.days} days per week
 - Experience Level: ${userInfo.experience} (Beginner, Intermediate, Advanced)
-- Training History: ${userInfo.history} (actual time lifting, e.g. 6 months, 3 years)
 - Injuries / Pain Zones: ${userInfo.injuries} (e.g. knees, shoulders, lower back)
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
-- Favorite Movements: ${userInfo.favorites} (e.g. leg press, lat pulldown, cable kickbacks)
 - Preferred Rest Days: ${userInfo.restPref}
 
 INTELLIGENT PLAN LOGIC:
-1. Use both Experience + History:
-   - If experience = Advanced but history < 1 year, moderate intensity.
-   - Use history to control volume, supersets, and complexity.
 
-2. Apply Injury Logic:
-   - Knee issues → Avoid deep squats, lunges, step-ups.
-   - Shoulder pain → Avoid overhead pressing and lateral raises.
-   - Lower back → No RDLs, back squats, heavy compression lifts.
+1. Apply Injury Logic:
+   - Knee issues → Minimize deep knee flexion. Replace squats/lunges with leg press, glute bridges, hamstring curls.
+   - Shoulder pain → Avoid overhead pressing and lateral raises. Prioritize incline pressing, cables, and neutral-grip rows.
+   - Lower back → Limit spinal compression. Use machines like leg press and lat pulldown. Avoid RDLs, barbell squats, and direct loading.
+   - General Rule → Favor machines, stable surfaces, and slower tempos when injury is present.
 
-3. Focus Weak Points:
-   - If user notes specific muscle (e.g. left glute), increase volume on that area.
-   - Add unilateral work and target it 2–3x per week intelligently.
 
-4. Favorite Machines:
-   - Prioritize 2–3x/week use.
-   - Rotate muscle angles don't overuse.
-   - Mention them by name if possible, with context.
+2. Focus Weak Points:
+   - If user flags specific muscle (e.g. left glute, rear delt, upper chest), increase volume and frequency on that region.
+   - Use unilateral/isolation movements to correct imbalances (e.g. single-leg glute bridge, single-arm cable row).
+   - Train that muscle 2–3x/week across logical training days.
+   - Prioritize as activation warm-ups or finishers don’t sacrifice main compound movements unless necessary.
+
+
+
+ 3. Gym Type Logic
+if (userInfo.gym.toLowerCase().includes("planet")) {
+  planNotes.push(
+    "- Gym Type: Planet Fitness\n" +
+    "  - No barbells or squat racks — avoid deadlifts/squats\n" +
+    "  - Prioritize machines, Smith machine, cables, and light dumbbells\n" +
+    "  - High-volume, machine-driven programming preferred"
+  );
+} else if (
+  userInfo.gym.toLowerCase().includes("gold") ||
+  userInfo.gym.toLowerCase().includes("la fitness") ||
+  userInfo.gym.toLowerCase().includes("crunch") ||
+  userInfo.gym.toLowerCase().includes("lifetime") ||
+  userInfo.gym.toLowerCase().includes("anytime") ||
+  userInfo.gym.toLowerCase().includes("commercial")
+) {
+  planNotes.push(
+    "- Gym Type: Commercial Gym\n" +
+    "  - Full access to barbells, cables, and machines\n" +
+    "  - Allow advanced lifts: squats, hip thrusts, RDLs, presses\n" +
+    "  - Free-weight and machine-based programming allowed"
+  );
+} else if (userInfo.gym.toLowerCase().includes("home")) {
+  planNotes.push(
+    "- Gym Type: Home Gym\n" +
+    "  - Use creative swaps (e.g. backpack rows, box squats, bands)\n" +
+    "  - Focus on tempo, drop sets, and high reps\n" +
+    "  - No machines or barbells — every day is adapted"
+  );
+} else if (userInfo.gym.toLowerCase().includes("power")) {
+  planNotes.push(
+    "- Gym Type: Powerlifting Gym\n" +
+    "  - Core lifts = squat, bench, deadlift (3–6 rep range)\n" +
+    "  - Train compounds 2–3x/week, high frequency\n" +
+    "  - Accessory work supports weak points and bracing"
+  );
+} else if (
+  userInfo.gym.toLowerCase().includes("glute") ||
+  userInfo.gym.toLowerCase().includes("aesthetic")
+) {
+  planNotes.push(
+    "- Gym Type: Glute/Aesthetic Gym\n" +
+    "  - Prioritize glute bridges, abductions, kickbacks, cables\n" +
+    "  - Emphasize glutes 3–4x/week with multiple angles\n" +
+    "  - Lower priority on heavy barbell lifts unless strength goal"
+  );
+} else {
+  planNotes.push(
+    "- Gym Type: Not recognized — using default commercial logic\n" +
+    "  - Assume standard access to cables, machines, and barbells"
+  );
+}
+
+ 3. Extra Gym Logic
+- If user selects Planet Fitness, avoid barbell movements (no squat racks or deadlifts). Focus on machines, Smith machine, cables, and dumbbells under 75 lbs. Prioritize high-volume, machine-based programming.
+- If user selects a Commercial Gym (e.g. Gold’s, LA Fitness, Crunch, Lifetime, Anytime), assume full access to barbells, machines, and dumbbells. Allow advanced lifts like barbell squats, hip thrusts, RDLs, and full free-weight options.
+- If user selects Home Gym, use creative substitutions (e.g. backpack rows, single-leg box squats, resistance bands). Prioritize tempo work, drop sets, and higher reps to offset lighter equipment. No machines or barbells.
+- If user selects Powerlifting Gym, prioritize compound movements (squat, bench, deadlift) in lower rep ranges (3–6). Keep training frequency high for big lifts. Use accessory work for weak points and bracing.
+- If user selects a Glute Gym or aesthetic-focused facility, bias toward abduction machines, kickbacks, glute bridges, and cable angles. Emphasize glute volume 3–4x/week with multiple angles and burnouts. Deprioritize heavy compound lifts unless needed for strength goals.
+
 
 BEHAVIOR RULES:
 
