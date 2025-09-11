@@ -24,6 +24,7 @@ app.post("/generate-split", async (req, res) => {
 
   const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
 
+
 USER PROFILE:
 - Age: ${userInfo.age}
 - Weight: ${userInfo.weight} lbs
@@ -31,13 +32,31 @@ USER PROFILE:
 - Goal: ${userInfo.goal} (e.g. Strength, Fat Loss, Glute Growth, Muscle Gain, Powerbuilding)
 - Gym Type: ${userInfo.gym} (assume limited free weights if Planet Fitness)
 - Days Available: ${userInfo.days} days per week
-- Experience Level: ${userInfo.experience} (e.g. Beginner, Medium, Advanced)
+- Experience Level: ${userInfo.experience} (Beginner, Intermediate, Advanced)
+- Training History: ${userInfo.history} (actual time lifting, e.g. 6 months, 3 years)
+- Injuries / Pain Zones: ${userInfo.injuries} (e.g. knees, shoulders, lower back)
+- Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
+- Favorite Movements: ${userInfo.favorites} (e.g. leg press, lat pulldown, cable kickbacks)
 - Preferred Rest Days: ${userInfo.restPref}
 
-Each workout day must include a field called "insight" with one short sentence (max 20 words). It should explain the training logic, sequence rationale, recovery strategy, or gym plan reasoning behind the workout — no generic tips.
+INTELLIGENT PLAN LOGIC:
+1. Use both Experience + History:
+   - If experience = Advanced but history < 1 year, moderate intensity.
+   - Use history to control volume, supersets, and complexity.
 
-Use a calm, sharp tone. No emojis, no hype, no coaching. Just smart, clean reasoning that explains why the workout is structured that way.
+2. Apply Injury Logic:
+   - Knee issues → Avoid deep squats, lunges, step-ups.
+   - Shoulder pain → Avoid overhead pressing and lateral raises.
+   - Lower back → No RDLs, back squats, heavy compression lifts.
 
+3. Focus Weak Points:
+   - If user notes specific muscle (e.g. left glute), increase volume on that area.
+   - Add unilateral work and target it 2–3x per week intelligently.
+
+4. Favorite Machines:
+   - Prioritize 2–3x/week use.
+   - Rotate muscle angles don't overuse.
+   - Mention them by name if possible, with context.
 
 BEHAVIOR RULES:
 
@@ -141,22 +160,20 @@ Never include more than 6 or fewer than 3 exercises unless the user specifically
 
 Use natural sentence rhythm do not use markdown, dashes, or bullets.
 
-"For each workout day, include a field called 'insight'. This must follow these rules:
-
-- Purpose: Insights are short, intelligent comments that reflect the why behind today’s training not generic tips.
+- Purpose: Insights are short, intelligent comments that reflect the *why* behind today’s training — not generic tips.
 - Length: 1 sentence only. Max 20 words. Make it crisp, clear, and smart.
-- Tone: Calm, sharp, and insightful no emojis, no hype, no coaching tone.
+- Tone: Calm, sharp, and insightful — no emojis, no hype, no coaching tone.
 - Content Types Allowed:
-  • Training logic (e.g., 'You’re stacking volume on chest to hit hypertrophy ranges after a heavy opener.')
-  • Exercise sequencing rationale (e.g., 'Pre-exhausting triceps lets your chest push harder in compound presses.')
-  • Recovery or frequency logic (e.g., 'This is your second pull day, so volume is dialed down to reduce fatigue.')
-  • Strategy nods (e.g., 'Ending with bodyweight dips maximizes pump without draining your CNS.')
+  • Training logic (e.g., "You're stacking volume on chest to hit hypertrophy ranges after a heavy opener.")
+  • Exercise sequencing rationale (e.g., "Pre-exhausting triceps lets your chest push harder in compound presses.")
+  • Recovery or frequency logic (e.g., "This is your second pull day, so volume is dialed down to reduce fatigue.")
+  • Strategy nods (e.g., "Ending with bodyweight dips maximizes pump without draining your CNS.")
 - Banned:
   ✘ No motivational quotes
-  ✘ No general advice like 'keep rest short'
-  ✘ No 'focus on form' or 'squeeze the muscle' phrasing
+  ✘ No general advice like “keep rest short”
+  ✘ No “focus on form” or “squeeze the muscle” phrasing
   ✘ No emojis, bold text, or closers
-  ✘ No repeated insights across days each must be unique"
+  ✘ No repeated insights across days — each must be unique
 
 
 Example:
@@ -394,6 +411,7 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
+
 
 function getSystemPrompt(mode, dateToday) {
   switch (mode) {
