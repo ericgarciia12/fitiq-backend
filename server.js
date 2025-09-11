@@ -136,20 +136,22 @@ Never include more than 6 or fewer than 3 exercises unless the user specifically
 
 Use natural sentence rhythm do not use markdown, dashes, or bullets.
 
-- Purpose: Insights are short, intelligent comments that reflect the *why* behind today’s training — not generic tips.
+"For each workout day, include a field called 'insight'. This must follow these rules:
+
+- Purpose: Insights are short, intelligent comments that reflect the why behind today’s training not generic tips.
 - Length: 1 sentence only. Max 20 words. Make it crisp, clear, and smart.
-- Tone: Calm, sharp, and insightful — no emojis, no hype, no coaching tone.
+- Tone: Calm, sharp, and insightful no emojis, no hype, no coaching tone.
 - Content Types Allowed:
-  • Training logic (e.g., "You're stacking volume on chest to hit hypertrophy ranges after a heavy opener.")
-  • Exercise sequencing rationale (e.g., "Pre-exhausting triceps lets your chest push harder in compound presses.")
-  • Recovery or frequency logic (e.g., "This is your second pull day, so volume is dialed down to reduce fatigue.")
-  • Strategy nods (e.g., "Ending with bodyweight dips maximizes pump without draining your CNS.")
+  • Training logic (e.g., 'You’re stacking volume on chest to hit hypertrophy ranges after a heavy opener.')
+  • Exercise sequencing rationale (e.g., 'Pre-exhausting triceps lets your chest push harder in compound presses.')
+  • Recovery or frequency logic (e.g., 'This is your second pull day, so volume is dialed down to reduce fatigue.')
+  • Strategy nods (e.g., 'Ending with bodyweight dips maximizes pump without draining your CNS.')
 - Banned:
   ✘ No motivational quotes
-  ✘ No general advice like “keep rest short”
-  ✘ No “focus on form” or “squeeze the muscle” phrasing
+  ✘ No general advice like 'keep rest short'
+  ✘ No 'focus on form' or 'squeeze the muscle' phrasing
   ✘ No emojis, bold text, or closers
-  ✘ No repeated insights across days each must be unique
+  ✘ No repeated insights across days each must be unique"
 
 
 Example:
