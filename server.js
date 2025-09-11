@@ -128,10 +128,10 @@ Each workout day must include:
 - Exercises: 4–6 total depending on user's goal, experience, and days/week
 - Each exercise must include:
   - Name (e.g. Smith Machine Incline Press)
-  - Sets × Reps (e.g. 4 sets of 8–10)
+  - Sets × Reps (e.g. 4x8–10)
   - Notes (1-line cue or detail: “slow eccentric”, “last set to failure”, “superset with next”)
   - Optional tag (e.g. Superset, Drop Set, Strength Focus, Pump Finisher) only if relevant
-- Insight : 1 sentence explaining the training strategy or logic behind that day’s design or placement. (E.g. “This push day sits between your pull and leg days to allow full recovery.”)
+
 Never include more than 6 or fewer than 3 exercises unless the user specifically requests a custom number.
 
 Use natural sentence rhythm do not use markdown, dashes, or bullets.
@@ -142,121 +142,118 @@ Example Format:
 
 CHEST + TRICEPS PUMP
 
-1. Smith Machine Incline Press — 4 sets of 8–10  
-   Focus on upper chest, control the descent
+1. Smith Machine Incline Press • 4x8–10  
+ 
 
-2. Cable Fly (High to Low) — 3 sets of 12–15  
-   Stretch fully, slow return
+2. Cable Fly (High to Low) • 3x12–15  
+  
 
-3. Tricep Pushdowns — 3 sets of 10–12  
-   Superset with next
+3. Tricep Pushdowns • 3x10–12  
+  
 
-4. Overhead Dumbbell Extensions — 3 sets of 10  
-   Burnout set: last set to failure
+4. Overhead Dumbbell Extensions • 3x10  
+  
 
-5. Pec Deck Machine — 3 sets of 15  
-   Optional finisher — squeeze hard at the top
+5. Pec Deck Machine • 3x15  
+  
 
-FORMAT:  
+FORMAT:
 Return a JSON object with 7 keys (Monday–Sunday). Each day should be:
-
 {
   "title": "Chest + Triceps Power",
   "exercises": [
-    "Incline Smith Press — 4 sets of 8–10",
-    "Cable Flys — 3 sets of 12",
-    "Tricep Pushdowns — 3 sets of 10 (superset with next)",
-    "Overhead Dumbbell Extensions — 3 sets to failure"
+    "Incline Smith Press • 4x8–10",
+    "Cable Flys • 3x12",
+    "Tricep Pushdowns • 3x10 (superset with next)",
+    "Overhead Dumbbell Extensions • 3 sets to failure"
   ],
-  "insight": "This push day sits between pull and legs so you're fresh for both."
+  "tip": "Focus on slow eccentric on pressing movements today."
 }
 
 If the day is a rest day, return:
-
 {
   "title": "Rest Day",
   "exercises": [],
-  "insight": "Rest day to allow full muscle recovery from previous sessions."
+  "tip": ""
 }
 
 EXAMPLES:
 
-1. Glute Growth (Female) — Full Gym  
+1. Glute Growth (Female) — Full Gym
 {
   "title": "Glute + Hamstring Builder",
   "exercises": [
-    "Barbell Hip Thrusts — 4 sets of 10",
-    "Romanian Deadlifts — 3 sets of 12",
-    "Cable Kickbacks — 3 sets of 15 each leg",
-    "Glute Bridges (bodyweight) — 3 sets to failure"
+    "Barbell Hip Thrusts • 4x10",
+    "Romanian Deadlifts • 3x12",
+    "Cable Kickbacks • 3x15 each leg",
+    "Glute Bridges (bodyweight) • 3 sets to failure"
   ],
-  "insight": "This day targets posterior chain tension while saving your quads for tomorrow."
+  "tip": "Pause at the top of each rep for maximum glute activation."
 }
 
-2. Fat Loss — Planet Fitness  
+2. Fat Loss — Planet Fitness
 {
   "title": "Upper Body Burnout",
   "exercises": [
-    "Smith Machine Incline Press — 4 sets of 10",
-    "Assisted Pull-ups — 3 sets of 8–10",
-    "Cable Chest Fly — 3 sets of 12",
-    "Rope Triceps Pushdowns — 3 sets of 15 (superset with next)",
-    "EZ Bar Curls (Machine) — 3 sets of 12"
+    "Smith Machine Incline Press • 4x10",
+    "Assisted Pull-ups • 3x8–10",
+    "Cable Chest Fly • 3x12",
+    "Rope Triceps Pushdowns • 3x15 (superset with next)",
+    "EZ Bar Curls (Machine) • 3x12"
   ],
-  "insight": "High-volume push-pull day to keep intensity up while torching calories."
+  "tip": "Keep rest times short — 30 to 45 seconds max."
 }
 
-3. Strength (Male) — Full Gym  
+3. Strength (Male) — Full Gym
 {
   "title": "Pull Power",
   "exercises": [
-    "Weighted Pull-ups — 4 sets of 6–8",
-    "Barbell Rows — 4 sets of 8",
-    "Lat Pulldown (wide grip) — 3 sets of 10",
-    "Hammer Curls — 3 sets of 12 (superset with next)",
-    "EZ Bar Curls — 3 sets to failure"
+    "Weighted Pull-ups • 4x6–8",
+    "Barbell Rows • 4x8",
+    "Lat Pulldown (wide grip) • 3x10",
+    "Hammer Curls • 3x12 (superset with next)",
+    "EZ Bar Curls • 3 sets to failure"
   ],
-  "insight": "This back day builds pulling strength for your big lifts later in the week."
+  "tip": "Control the eccentric portion to build strength and stability."
 }
 
-4. Beginner — Planet Fitness  
+4. Beginner — Planet Fitness
 {
   "title": "Intro Full Body Circuit",
   "exercises": [
-    "Seated Chest Press Machine — 3 sets of 12",
-    "Lat Pulldown — 3 sets of 10",
-    "Leg Press — 3 sets of 12",
-    "Dumbbell Shoulder Press (light) — 2 sets of 15",
-    "Plank Hold — 3 rounds of 30 seconds"
+    "Seated Chest Press Machine • 3x12",
+    "Lat Pulldown • 3x10",
+    "Leg Press • 3x12",
+    "Dumbbell Shoulder Press (light) • 2x15",
+    "Plank Hold • 3 rounds of 30 seconds"
   ],
-  "insight": "Balanced full-body work to build confidence and movement foundation."
+  "tip": "Focus on form over weight. Rest 60–90 sec between exercises."
 }
 
-5. Glute Growth (Female) — Planet Fitness  
+5. Glute Growth (Female) — Planet Fitness
 {
   "title": "Glute Activation Day",
   "exercises": [
-    "Smith Machine Hip Thrusts — 4 sets of 12",
-    "Dumbbell RDLs — 3 sets of 10–12",
-    "Cable Kickbacks — 3 sets of 15",
-    "Glute Bridges (machine) — 3 sets to failure"
+    "Smith Machine Hip Thrusts • 4x12",
+    "Dumbbell RDLs • 3x10–12",
+    "Cable Kickbacks • 3x15",
+    "Glute Bridges (machine) • 3 sets to failure"
   ],
-  "insight": "Lighter day focused on activation and mind-muscle connection before heavier lifts tomorrow."
+  "tip": "Mind-muscle connection is everything today — focus on the squeeze."
 }
 
-6. Powerbuilding — Full Gym  
+6. Powerbuilding — Full Gym
 {
   "title": "Push Strength + Volume",
   "exercises": [
-    "Barbell Bench Press — 4 sets of 6",
-    "Seated DB Shoulder Press — 3 sets of 10",
-    "Cable Chest Flys — 3 sets of 12 (superset with next)",
-    "Rope Overhead Triceps Extensions — 3 sets of 15",
-    "Bodyweight Dips — 2 sets to failure"
+    "Barbell Bench Press • 4x6",
+    "Seated DB Shoulder Press • 3x10",
+    "Cable Chest Flys • 3x12 (superset with next)",
+    "Rope Overhead Triceps Extensions • 3x15",
+    "Bodyweight Dips • 2 sets to failure"
   ],
-  "insight": "Push heavy early, then chase volume to stretch and pump your upper body."
+  "tip": "Your first lift sets the tone — give it 100% focus."
 }
-
 
 
 If the day is a rest day, return:
