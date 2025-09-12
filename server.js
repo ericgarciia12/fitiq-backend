@@ -25,8 +25,9 @@ app.post("/generate-split", async (req, res) => {
   const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
 
 
-USER PROFILE:
+USER PROFILE: 
 - Age: ${userInfo.age}
+- Gender: ${userInfo.gender} (Male or Female — adjusts rep range, exercise type, and recovery)
 - Weight: ${userInfo.weight} lbs
 - Height: ${userInfo.height} inches
 - Goal: ${userInfo.goal} (e.g. Strength, Fat Loss, Glute Growth, Muscle Gain, Powerbuilding)
@@ -37,20 +38,43 @@ USER PROFILE:
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
 - Preferred Rest Days: ${userInfo.restPref}
 
+
 INTELLIGENT PLAN LOGIC:
 
-1. Apply Injury Logic:
-   - Knee issues → Minimize deep knee flexion. Replace squats/lunges with leg press, glute bridges, hamstring curls.
-   - Shoulder pain → Avoid overhead pressing and lateral raises. Prioritize incline pressing, cables, and neutral-grip rows.
-   - Lower back → Limit spinal compression. Use machines like leg press and lat pulldown. Avoid RDLs, barbell squats, and direct loading.
-   - General Rule → Favor machines, stable surfaces, and slower tempos when injury is present.
+1. Apply Injury Logic (Red Flag Filter):
+   - Knee Pain:
+     → Avoid deep knee flexion and unstable positions.
+     → ❌ No barbell squats, walking lunges, or step-ups.
+     → ✅ Use leg press (short range), glute bridges, hamstring curls, seated adductors.
+     → ✅ Emphasize slow eccentric reps and tempo machines.
+
+   - Shoulder Pain or Tightness:
+     → Remove overhead pressing, upright rows, and heavy lateral raises.
+     → ❌ No shoulder press machines or barbell overhead lifts.
+     → ✅ Prioritize incline pressing, neutral-grip rows, cables, and isolated push/pull angles.
+     → ✅ Light resistance band work, rear delt flyes, and wall slides as recovery warm-ups.
+
+   - Lower Back Strain:
+     → Eliminate spinal compression and hinging under load.
+     → ❌ No RDLs, back squats, barbell rows, or standing ab work.
+     → ✅ Favor seated machines (e.g. chest press, lat pulldown, leg press), stability ball work, and supported core drills (e.g. cable crunches, bird dogs).
+
+   - General Injury Rule:
+     → Replace any painful or joint-risk movement with a machine version, shorter range, or bodyweight swap.
+     → Anchor workouts around stable surfaces, slower tempos, and progressive scaling (e.g. add dumbbells later).
+     → Always downgrade intensity before skipping the pattern entirely — preserve the goal.
 
 
-2. Focus Weak Points:
-   - If user flags specific muscle (e.g. left glute, rear delt, upper chest), increase volume and frequency on that region.
-   - Use unilateral/isolation movements to correct imbalances (e.g. single-leg glute bridge, single-arm cable row).
-   - Train that muscle 2–3x/week across logical training days.
-   - Prioritize as activation warm-ups or finishers don’t sacrifice main compound movements unless necessary.
+
+2. Focus Weak Points & Target Areas:
+   - If user flags a specific weak muscle (e.g. rear delt, upper chest, left glute), increase volume and frequency on that region.
+   - Use unilateral or isolation movements to correct imbalances (e.g. single-leg glute bridge, single-arm cable row).
+   - Train that muscle 2–3x/week across logical training days — as activation warm-ups or finishers.
+   - Do not sacrifice main compound movements unless absolutely necessary.
+
+   - If the user's goal includes a performance or aesthetic focus (e.g. Glutes, Arms, Power), allow 1 dedicated “focus day” each week to fully target that area.
+     → Example: Arm Volume Shock, Glute Isolation Flow, or Power Primer.
+     → These should follow intelligent programming: supersets, tempo, pause reps, unilateral work not fluff.
 
 
 
@@ -107,13 +131,101 @@ if (userInfo.gym.toLowerCase().includes("planet")) {
   );
 }
 
- 3. Extra Gym Logic
+3. Extra Gym Logic
 - If user selects Planet Fitness, avoid barbell movements (no squat racks or deadlifts). Focus on machines, Smith machine, cables, and dumbbells under 75 lbs. Prioritize high-volume, machine-based programming.
 - If user selects a Commercial Gym (e.g. Gold’s, LA Fitness, Crunch, Lifetime, Anytime), assume full access to barbells, machines, and dumbbells. Allow advanced lifts like barbell squats, hip thrusts, RDLs, and full free-weight options.
 - If user selects Home Gym, use creative substitutions (e.g. backpack rows, single-leg box squats, resistance bands). Prioritize tempo work, drop sets, and higher reps to offset lighter equipment. No machines or barbells.
 - If user selects Powerlifting Gym, prioritize compound movements (squat, bench, deadlift) in lower rep ranges (3–6). Keep training frequency high for big lifts. Use accessory work for weak points and bracing.
 - If user selects a Glute Gym or aesthetic-focused facility, bias toward abduction machines, kickbacks, glute bridges, and cable angles. Emphasize glute volume 3–4x/week with multiple angles and burnouts. Deprioritize heavy compound lifts unless needed for strength goals.
+- If gym type is not specified or doesn't match any known categories, default to Commercial Gym logic. Still generate a workout using standard access (machines, cables, free weights) and avoid pausing or error messaging.
 
+
+4. Add Cardio Based on Goal + Setup:
+
+   Fat Loss Goals:
+     → Add 15–25 min of steady cardio post-workout (or as a separate recovery session).
+     → ✅ Treadmill incline walk, elliptical, recumbent bike.
+     → ✅ Encourage daily steps (8–12k), LISS (low-intensity steady state), or light evening walks.
+     → Optional: Assign 1 full-body cardio circuit or “Sweat Day” for variety and movement.
+
+   Beginner Users:
+     → Always include a 5–10 min low-impact cardio warmup to increase blood flow and reduce injury risk.
+     → ✅ Elliptical, upright bike, treadmill walk (no running), or rowing machine (only if back is healthy).
+     → Never assign sprint work or stair intervals to beginners unless requested.
+
+   Planet Fitness Users:
+     → Prioritize PF cardio machines — treadmill, elliptical, Arc Trainer, recumbent bike.
+     → Option to use stair stepper if knee health is confirmed and user has solid base.
+     → Add 10–20 min steady cardio 2–3x/week or after lifting days based on fatigue.
+     → ✅ “Purple Zone” cardio = part of PF identity. Leverage it smartly.
+
+   Users with Injuries:
+     → Knee Pain: ❌ Avoid stair machines, sprinting, and aggressive incline walks.
+       → ✅ Use seated cardio options — recumbent bike, slow-paced elliptical.
+     → Back Pain: ❌ Avoid rowers and unsupported incline walking.
+       → ✅ Use upright bike or treadmill with flat grade + arm support.
+     → Shoulder Pain: ✅ Any cardio unless arm movement is painful — then choose bike.
+
+   Advanced / Athletic Users:
+     → Add 1–2 HIIT days per week only if requested or supported by goal.
+     → Intervals should be short (e.g. 20s sprint / 90s walk × 6) or circuit-based conditioning.
+     → Optional: Assign cardio finishers (e.g. 5-min bike push, jump rope, sled work if gym allows).
+
+   General Rules:
+     → Never prescribe intense cardio on heavy lower-body days unless user is conditioned.
+     → Recovery days can include walking, incline cardio, or light bike (5–10 min) to aid soreness.
+     → Let cardio enhance the split don’t let it hijack strength or hypertrophy goals.
+
+     const isCardioOnlyRequest = (userRequest.toLowerCase().includes("cardio") &&
+  !userRequest.toLowerCase().includes("lift") &&
+  !userRequest.toLowerCase().includes("weights") &&
+  !userRequest.toLowerCase().includes("strength"));
+
+if (isCardioOnlyRequest) {
+  return generateCardioOnlySession(goal, gymType, injuryStatus);
+} else {
+  const workout = buildLiftingWorkoutSplit(goal, gymType, experience);
+  const cardioAddOn = attachCardioAddOn(goal, gymType, experience, injuryStatus);
+  return { workout, cardioAddOn };
+}
+
+1. Gender Logic
+
+- While training principles are similar across genders, biological and hormonal differences should influence programming.
+
+- Female users generally have:
+  → Greater fatigue resistance and recovery in moderate rep ranges (8–15)
+  → Lower absolute upper-body strength (especially pushing movements)
+  → Higher injury risk in knees and shoulders if volume and form aren’t monitored
+  → Better metabolic response to high reps, circuits, and lower rest periods
+  → Different fat distribution patterns (glutes, thighs, arms) requiring smarter targeting
+
+- Male users typically:
+  → Respond better to heavier weights, longer rest, and lower rep ranges (4–8)
+  → Prioritize strength and muscle mass more often than fat loss or aesthetics
+  → Have higher baseline testosterone, supporting barbell-based progression
+  → Handle higher joint loading but may overtrain without enough mobility or rest
+
+- Programming Adjustments:
+  → For Women:
+     - Favor dumbbells, cables, machines over heavy barbell lifts unless strength is the goal
+     - Bias toward glute, core, and posture-based accessory work (e.g. RDLs, abductions, rows)
+     - Use supersets, circuit flow, and shorter rest to optimize metabolic training
+     - Avoid over-prescribing max-effort lifts (e.g. 3RM deadlifts) unless requested
+
+  → For Men:
+     - Include compound lifts early: squat, bench, deadlift, overhead press
+     - Allow heavier rep ranges (3–8) with longer rest (90–180 sec)
+     - Focus on progressive overload, RIR-based fatigue, and strength-driven progression
+     - Add arm work, shoulder volume, and lower-body balance to offset ego lifting
+
+- Same Goal ≠ Same Plan:
+  → A woman and man both trying to lose fat may need different cueing, rest periods, and lift types
+  → Smart programming adapts to muscle fiber dominance, lifestyle, hormonal patterns, and injury history
+
+- Final Rule:
+  → Always bias toward user comfort, safety, and confidence.
+  → If user explicitly says “I want to train like a guy” or “I want to lift heavy,” override defaults and follow the user's voice.
 
 BEHAVIOR RULES:
 
@@ -191,7 +303,7 @@ ADDITIONAL BEHAVIOR RULES:
 
 FINAL UNIVERSAL RULES (DO NOT MISS):
 
-- NEVER assign barbell squats, bench press, or deadlifts at Planet Fitness.
+- NEVER assign barbell squats, bench press, deadlifts, or barbell curls at Planet Fitness.
 - NEVER schedule a new muscle group on a day after heavy soreness-inducing moves (e.g. don’t do quads day after lunges).
 - NEVER assign more than 5 exercises per day unless user is advanced and training 2+ hours.
 - NEVER pair exercises that require competing grip strength back-to-back (e.g. heavy rows then dead hangs).
@@ -202,6 +314,15 @@ FINAL UNIVERSAL RULES (DO NOT MISS):
 - NEVER repeat the exact same title twice per week rotate emphasis (e.g. “Chest Power” vs “Chest Volume”).
 
 WORKOUT OUTPUT RULES:
+
+PROGRESSION + STRUCTURE LOGIC:
+
+- When building programs, use progression patterns like:
+  → Week 1: 4x6 → Week 2: 4x8 → Week 3: 5x5 or similar
+- Inject true strength rep schemes for compound lifts: 3x5, 4x6, or 5x3 for exercises like Smith squats, machine chest press, or DB rows.
+- Never repeat the same workout structure twice in a week — contrast push/pull or strength/volume across days.
+- For weak points, distribute their volume intelligently across multiple days instead of overloading one session.
+- Use PF-friendly overload cues (e.g., slow tempo, pause reps, last set to failure, drop sets) where barbell loading is not available.
 
 Each workout day must include:
 
@@ -351,6 +472,36 @@ EXAMPLES:
   ],
   "insight": "You're balancing max load with hypertrophy today hit your compound hard, then chase the pump with tight, high-rep finishers."
 }
+7. Fat Loss — Planet Fitness
+{
+  "title": "Cardio Sweat Session (LISS Focus)",
+  "exercises": [
+    "Incline Treadmill Walk • 20 min @ 3.0–3.5 mph, incline 10–12%",
+    "Elliptical Intervals • 3 rounds of 3 min fast / 2 min slow",
+    "Recumbent Bike • 10 min steady pace (heart rate zone 2)"
+  ],
+  "insight": "This low-impact session is built to burn fat without frying your joints. Breathe steady, maintain rhythm, and let sweat do the work."
+}
+8. Athletic Conditioning — Full Gym
+{
+  "title": "HIIT Conditioning Finisher",
+  "exercises": [
+    "Air Bike Sprints • 6 rounds of 20 sec sprint / 90 sec rest",
+    "Sled Pushes • 4x30 yards (moderate load)",
+    "Jump Rope Intervals • 5 rounds of 1 min on / 30 sec off"
+  ],
+  "insight": "This is performance cardio — short bursts, long recoveries. Push max intensity, but only if your legs still have gas post-lift."
+}
+9. Beginner — Planet Fitness
+{
+  "title": "Cardio Warmup + Recovery",
+  "exercises": [
+    "Upright Bike • 5 min warmup pace",
+    "Elliptical Glide • 10 min at easy intensity",
+    "Treadmill Flat Walk • 5–10 min cooldown (optional)"
+  ],
+  "insight": "Perfect for warming up before lifting or getting light movement on a rest day. Low stress, low impact, and beginner-safe."
+}
 
 
 
@@ -468,7 +619,6 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
-
 
 function getSystemPrompt(mode, dateToday) {
   switch (mode) {
