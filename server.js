@@ -32,7 +32,7 @@ USER PROFILE:
 - Height: ${userInfo.height} inches
 - Goal: ${userInfo.goal} (e.g. Strength, Fat Loss, Glute Growth, Muscle Gain, Powerbuilding)
 - Gym Type: ${userInfo.gym} (assume limited free weights if Planet Fitness)
-- Train the user for exactly ${userInfo.days} days per week. Do NOT exceed this number. Do NOT add surprise rest days. The app handles rest logic separately.
+- Days Available: ${userInfo.days} days per week
 - Experience Level: ${userInfo.experience} (Beginner, Intermediate, Advanced)
 - Injuries / Pain Zones: ${userInfo.injuries} (e.g. knees, shoulders, lower back)
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
@@ -151,7 +151,6 @@ if (userInfo.gym.toLowerCase().includes("planet")) {
 - If user selects Powerlifting Gym, prioritize compound movements (squat, bench, deadlift) in lower rep ranges (3–6). Keep training frequency high for big lifts. Use accessory work for weak points and bracing.
 - If user selects a Glute Gym or aesthetic-focused facility, bias toward abduction machines, kickbacks, glute bridges, and cable angles. Emphasize glute volume 3–4x/week with multiple angles and burnouts. Deprioritize heavy compound lifts unless needed for strength goals.
 - If gym type is not specified or doesn't match any known categories, default to Commercial Gym logic. Still generate a workout using standard access (machines, cables, free weights) and avoid pausing or error messaging.
-- Do not create additional Sweat Days or Cardio Days unless user explicitly wants 6 training days.
 
 
 4. Add Cardio Based on Goal + Setup:
