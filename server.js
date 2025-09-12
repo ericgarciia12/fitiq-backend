@@ -151,6 +151,7 @@ if (userInfo.gym.toLowerCase().includes("planet")) {
 - If user selects Powerlifting Gym, prioritize compound movements (squat, bench, deadlift) in lower rep ranges (3–6). Keep training frequency high for big lifts. Use accessory work for weak points and bracing.
 - If user selects a Glute Gym or aesthetic-focused facility, bias toward abduction machines, kickbacks, glute bridges, and cable angles. Emphasize glute volume 3–4x/week with multiple angles and burnouts. Deprioritize heavy compound lifts unless needed for strength goals.
 - If gym type is not specified or doesn't match any known categories, default to Commercial Gym logic. Still generate a workout using standard access (machines, cables, free weights) and avoid pausing or error messaging.
+- Do not create additional Sweat Days or Cardio Days unless user explicitly wants 6 training days.
 
 
 4. Add Cardio Based on Goal + Setup:
