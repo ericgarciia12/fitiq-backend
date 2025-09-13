@@ -22,8 +22,7 @@ app.post("/generate-split", async (req, res) => {
     return res.status(400).json({ error: "Missing user info for plan generation." });
   }
 
-  const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
-
+const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
 
 USER PROFILE: 
 - Age: ${userInfo.age}
@@ -43,6 +42,24 @@ TRAINING STRUCTURE RULES:
 - Do not insert bonus workouts or cardio days unless the user explicitly says they want 6+ training days.
 - The user's preferred rest days are: ${userInfo.restPref}. These days must always remain empty. Do not place any workouts, cardio, or warm-ups on these days.
 - Rest day logic is managed by the app. Your job is to create training days only — no exceptions.
+
+FORMAT RULES (DO NOT BREAK):
+- Your entire response must be valid JSON. Do not include any intro text, commentary, or backticks.
+- Return a JSON array of 7 objects — one per day (training day or rest day).
+- Each day must use the format below:
+
+{
+  "title": "Workout Title or 'Rest Day'",
+  "exercises": ["Exercise 1 • sets x reps", "Exercise 2 • sets x reps"]
+}
+- For rest days, return:
+{
+  "title": "Rest Day",
+  "exercises": []
+}
+
+Do not add any extra formatting or text. Your response must be clean, valid JSON only.
+
 
 INTELLIGENT PLAN LOGIC:
 
