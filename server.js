@@ -487,7 +487,7 @@ EXAMPLES:
     "Cable Kickbacks • 3x15 each leg",
     "Glute Bridges (bodyweight) • 3 sets to failure"
   ],
-  "insight": "This day is all about deep posterior chain work use controlled reps and prioritize full hip extension at the top of each movement."
+
 }
 
 2. Fat Loss — Planet Fitness
@@ -500,7 +500,7 @@ EXAMPLES:
     "Rope Triceps Pushdowns • 3x15 (superset with next)",
     "EZ Bar Curls (Machine) • 3x12"
   ],
-  "insight": "Today’s goal is to spike heart rate and volume minimal rest, high reps, and lots of tension across pushing and pulling planes."
+ 
 }
 
 3. Strength (Male) — Full Gym
@@ -513,7 +513,7 @@ EXAMPLES:
     "Hammer Curls • 3x12 (superset with next)",
     "EZ Bar Curls • 3 sets to failure"
   ],
-  "insight": "This is your heavy vertical and horizontal pull day focus on full range and scapular retraction to maximize back growth."
+ 
 }
 
 4. Beginner — Planet Fitness
@@ -526,7 +526,7 @@ EXAMPLES:
     "Dumbbell Shoulder Press (light) • 2x15",
     "Plank Hold • 3 rounds of 30 seconds"
   ],
-  "insight": "This full body intro helps build base strength and coordination. Don’t rush reps learn the patterns and breathe through each set."
+ 
 }
 
 5. Glute Growth (Female) — Planet Fitness
@@ -538,7 +538,7 @@ EXAMPLES:
     "Cable Kickbacks • 3x15",
     "Glute Bridges (machine) • 3 sets to failure"
   ],
-  "insight": "Keep constant tension throughout every rep especially on kickbacks and thrusts. Your glutes respond best to pause and squeeze."
+ 
 }
 
 6. Powerbuilding — Full Gym
@@ -551,39 +551,29 @@ EXAMPLES:
     "Rope Overhead Triceps Extensions • 3x15",
     "Bodyweight Dips • 2 sets to failure"
   ],
-  "insight": "You're balancing max load with hypertrophy today hit your compound hard, then chase the pump with tight, high-rep finishers."
+ 
 }
-7. Fat Loss — Planet Fitness
+7. Fat Loss — Planet Fitness (Vault)
 {
-  "title": "Cardio Sweat Session (LISS Focus)",
+  "title": "Low Impact Recovery (UI Only)",
   "exercises": [
-    "Incline Treadmill Walk • 20 min @ 3.0–3.5 mph, incline 10–12%",
-    "Elliptical Intervals • 3 rounds of 3 min fast / 2 min slow",
-    "Recumbent Bike • 10 min steady pace (heart rate zone 2)"
+    "Incline Treadmill Walk • 10–15 min @ 3.0 mph, incline 5–8%",
+    "Recumbent Bike • 5–10 min easy pace",
+    "Elliptical Glide • 5 min cooldown flow"
   ],
-  "insight": "This low-impact session is built to burn fat without frying your joints. Breathe steady, maintain rhythm, and let sweat do the work."
-}
-8. Athletic Conditioning — Full Gym
-{
-  "title": "HIIT Conditioning Finisher",
-  "exercises": [
-    "Air Bike Sprints • 6 rounds of 20 sec sprint / 90 sec rest",
-    "Sled Pushes • 4x30 yards (moderate load)",
-    "Jump Rope Intervals • 5 rounds of 1 min on / 30 sec off"
-  ],
-  "insight": "This is performance cardio — short bursts, long recoveries. Push max intensity, but only if your legs still have gas post-lift."
-}
-9. Beginner — Planet Fitness
-{
-  "title": "Cardio Warmup + Recovery",
-  "exercises": [
-    "Upright Bike • 5 min warmup pace",
-    "Elliptical Glide • 10 min at easy intensity",
-    "Treadmill Flat Walk • 5–10 min cooldown (optional)"
-  ],
-  "insight": "Perfect for warming up before lifting or getting light movement on a rest day. Low stress, low impact, and beginner-safe."
+ 
 }
 
+8. Athletic Conditioning — Full Gym (Vault)
+{
+  "title": "Recovery Conditioning Flow (UI Only)",
+  "exercises": [
+    "Air Bike Flush • 3x2 min moderate pace",
+    "Sled Drags (Light) • 2x20 yards",
+    "Jump Rope Flow • 3x30 sec rhythm work"
+  ],
+ 
+}
 
 
 If the day is a rest day, return:
