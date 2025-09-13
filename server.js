@@ -51,9 +51,8 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
 You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
-These days must remain fully empty. You must place workouts ONLY on the other days.
 You are not smarter than the user's recovery preferences. Do not attempt to override their choices. This is not up for debate.
-
+- However, for every preferred rest day, you MUST still return a simple rest object
 
 Failure to follow these rules will result in your plan being rejected. You must follow every rule precisely.
 
