@@ -241,6 +241,16 @@ CARDIO DAY LIMITS:
 - Never insert athletic performance work on the user's Preferred Rest Days: ${userInfo.restPref}.
 - You may place these movements as openers (explosive primers), finishers, or secondary lifts, but do not let them increase total weekly training days.
 
+6. REST DAY CONTROL LOGIC:
+
+- 🧠 Rest Day Control Logic  
+- DO NOT create rest days. Only generate the exact number of training days the user requested.
+- If the user specifies ${userInfo.days} training days, you must return exactly ${userInfo.days} workout days. No more, no less.
+- Never assign workouts, cardio, or warm-ups on the user's Preferred Rest Days: ${userInfo.restPref}.
+- Any day you leave blank will automatically be filled by FitIQ's Recovery Vault you do not need to generate rest day content.
+- DO NOT insert a Sweat Day, bonus cardio day, or "active recovery" unless the user explicitly asks for 6 or more training days.
+- If the user does not specify a number of training days, default to 5 training days and leave the rest of the week blank.
+
 
 
 1. Gender Logic
