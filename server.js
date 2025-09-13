@@ -50,11 +50,28 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
-You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
-You are not smarter than the user's recovery preferences. Do not attempt to override their choices. This is not up for debate.
-- However, for every preferred rest day, you MUST still return a simple rest object
+// 🧠 Rest Day Control Logic — FINAL PATCH
 
-Failure to follow these rules will result in your plan being rejected. You must follow every rule precisely.
+- You are NOT allowed to create, invent, or insert your own rest days.
+
+- You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
+These days must remain fully empty of workouts, cardio, or mobility — nothing extra.
+
+- However, for every preferred rest day, you MUST still return a simple rest object:
+
+{
+  "title": "Rest Day",
+  "exercises": [],
+  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
+}
+
+- This allows the FitIQ system to properly display rest days using our Recovery Vault.
+
+- Do NOT leave rest days undefined, missing, or blank — you MUST include this object for each one.
+
+- You are NOT smarter than the user’s recovery preferences. Do not attempt to override their choices. This is not up for debate.
+
+
 
 
 TRAINING STRUCTURE RULES:
@@ -609,6 +626,7 @@ EXAMPLES:
   ],
   "insight": "No pounding, no impact — just clean cardiovascular work. Burn calories without pain. Low stress, high payoff."
 }
+
 
 
 
