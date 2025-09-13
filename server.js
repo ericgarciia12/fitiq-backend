@@ -163,68 +163,58 @@ planNotes.push(
 
 
 
-4. Add Cardio Based on Goal + Setup:
+' 4. Add Cardio Based on Goal + Setup (GPT-Approved)
 
-- Fat Loss Goals:
-  → Add 15–25 min of steady-state cardio post-lift or in a separate low-intensity session.
-  → ✅ Best options: treadmill incline walk, elliptical, recumbent bike, stair stepper, Arc Trainer.
-  → ✅ Encourage high step count (8–12k+ daily) via walking, chores, or treadmill sessions.
-  → Optional: Assign 1 full-body cardio circuit (Sweat Day) for movement variety and higher burn.
-  → Never assign more than 40 total minutes of cardio per day unless explicitly asked.
+' Fat Loss Goals:
+' → Add 15–25 min of steady-state cardio **post-lift only** (no separate sessions).
+' → Best options: treadmill incline walk, elliptical, recumbent bike, Arc Trainer.
+' → Encourage higher daily step count (8–12k+) through walking or chores.
+' → NEVER assign a full cardio day or Sweat Day unless user specifically asks.
+' → Cardio must follow resistance training and match user's joint condition.
 
-- Endurance Goals:
-  → Prioritize longer steady-state sessions (30–45 min) 3–4x/week.
-  → Rotate between machines to reduce wear: upright bike, elliptical, treadmill (flat), rower.
-  → Allow heart-rate guided sessions (Zone 2) if mentioned by user.
-  → May include one tempo/interval hybrid if recovery is managed.
+' Endurance Goals:
+' → Insert 25–40 min of low-to-moderate steady-state cardio **after lifts** on up to 3 training days/week.
+' → Rotate machines: treadmill (flat), upright bike, elliptical, rower.
+' → Allow Zone 2 logic if user mentions heart-rate goals.
+' → No separate cardio-only days unless user explicitly asks for them.
 
-- Beginner Users:
-  → ALWAYS assign a 5–10 min warm-up: low-impact cardio only (bike, walk, elliptical).
-  → ✅ Machines: upright bike, treadmill walk (flat), Arc Trainer, slow rower.
-  → ❌ NEVER assign stair stepper, HIIT, sprints, battle ropes, or jump rope.
-  → ❌ No intervals unless user specifically asks.
-  → Keep cardio capped at 20 min unless otherwise requested.
+' Beginner Users:
+' → Include 5–10 min warm-up before workouts (bike, walk, elliptical).
+' → Avoid: stair stepper, HIIT, sprints, jump rope, or battle ropes.
+' → Cap cardio at 15–20 min max unless user asks for more.
+' → NEVER assign cardio as its own session.
 
-- Planet Fitness Users:
-  → Prioritize PF machine access: treadmill, elliptical, Arc Trainer, recumbent bike.
-  → ✅ Optional: stair stepper or rower ONLY if no joint issues.
-  → Avoid giving outdoor cardio — PF is indoor gym focused.
-  → ✅ Emphasize PF’s “Purple Zone” cardio if user mentions it — this is their fat-burn area.
-  → 2–3x/week of steady cardio is recommended post-lift (10–20 min).
+' Planet Fitness Users:
+' → Cardio must use PF machines only: treadmill, elliptical, Arc Trainer, recumbent bike.
+' → If user mentions “Purple Zone,” it's okay to include a post-lift 10–20 min session.
+' → No outdoor cardio; must fit indoor PF environment.
+' → NEVER assign separate cardio/recovery sessions.
 
-- Gold’s Gym / Full Gym Users:
-  → Assume access to full range of machines and functional tools.
-  → ✅ Rotate between: incline treadmill, stair stepper, upright bike, rower, elliptical, ski erg.
-  → ✅ Optional: sled pushes, battle ropes, assault bike, VersaClimber, stairmill.
-  → Match machine to user's recovery level and goal — don’t overload legs after squat days.
-  → Add warm-ups or finishers with intent (not filler).
+' Gold’s Gym / Full Gym Users:
+' → Rotate: incline treadmill, stair stepper, upright bike, elliptical, ski erg, rower.
+' → Optional: battle ropes, sled pushes, VersaClimber — only as finishers.
+' → GPT must avoid overloading legs after leg day.
+' → Add cardio only after training sessions or as warm-up.
 
-- Users with Injuries:
-  → Knee Pain:
-    ❌ Avoid stairs, impact cardio, jump rope, sprints, or high incline.
-    ✅ Use seated options: recumbent bike, slow elliptical, upright bike (low resistance).
-  → Back Pain:
-    ❌ Avoid rowers, unsupported walking, twisting ab finishers, and stair climbers.
-    ✅ Use treadmill on flat grade (with arms supported), seated bike, arm erg.
-  → Shoulder Pain:
-    ✅ Any cardio that doesn’t aggravate arms — bikes, stairmill (no handles), treadmill.
-    → If arm swing causes pain, choose hands-free options only.
+' Users with Injuries:
+' → Knee Pain: Use recumbent bike, upright bike (light), elliptical. Avoid stairs, sprints, jump rope.
+' → Back Pain: Use treadmill (flat), seated bike, arm erg. Avoid unsupported walking, rowers.
+' → Shoulder Pain: Use cardio machines without arm movement if needed (treadmill, stairmill no handles).
 
-- Advanced / Athletic Users:
-  → You may assign 1–2 high-intensity days ONLY if the user explicitly wants conditioning or power.
-  → ✅ Allowed intervals:
-    – 20s sprint / 90s walk × 6  
-    – EMOMs (sled push, assault bike, jump rope, battle ropes)  
-    – 5–10 min finishers (bike burnouts, med ball slams, rope ladders)
-  → ✅ Only insert these IF joints are healthy and goal mentions performance, athleticism, or speed.
-  → ❌ NEVER assign box jumps, sleds, or sprints if injury or excess weight is present.
+' Advanced / Athletic Users:
+' → If user wants performance work, insert 1–2 finishers/week:
+'     • 20s sprint / 90s walk × 6
+'     • EMOMs: sled push, battle ropes, jump rope (only if asked)
+'     • Burnouts: 5–10 min on bike, rower, etc.
+' → Do not assign high-intensity cardio unless user’s joints and goal permit it.
 
-- General Cardio Guidelines:
-  → Never assign cardio on leg day unless user is conditioned or goal demands it.
-  → Recovery day cardio = low speed walking, incline treadmill (no hands), light cycling (5–15 min).
-  → DO NOT assign cardio randomly — always match it to user goal and gym access.
-  → GPT should explain logic if adding cardio: "to improve stamina", "to accelerate fat loss", etc.
-  → Cardio must complement — not conflict with — the training split.
+' General Guidelines:
+' → NEVER assign cardio on rest days — these are reserved for Vault logic.
+' → NEVER assign separate cardio sessions unless user requests them directly.
+' → All cardio must follow lifting or warm-up logic — GPT does not create cardio days.
+' → Cardio must always support, not interfere with, the training split or goal.
+' → GPT may explain cardio reasoning briefly if helpful: “added to support stamina,” etc.
+
 
 CARDIO DAY LIMITS:
 - You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
