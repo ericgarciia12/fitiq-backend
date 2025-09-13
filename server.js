@@ -27,7 +27,7 @@ app.post("/generate-split", async (req, res) => {
 
 USER PROFILE: 
 - Age: ${userInfo.age}
-- Gender: ${userInfo.gender} (Male or Female — adjusts rep range, exercise type, and recovery)
+- Gender: ${userInfo.gender} (Male or Female — adjusts rep range, exercise type)
 - Weight: ${userInfo.weight} lbs
 - Height: ${userInfo.height} inches
 - Goal: ${userInfo.goal} (e.g. Strength, Fat Loss, Glute Growth, Muscle Gain, Powerbuilding)
@@ -209,7 +209,6 @@ planNotes.push(
 ' → Do not assign high-intensity cardio unless user’s joints and goal permit it.
 
 ' General Guidelines:
-' → NEVER assign cardio on rest days — these are reserved for Vault logic.
 ' → NEVER assign separate cardio sessions unless user requests them directly.
 ' → All cardio must follow lifting or warm-up logic — GPT does not create cardio days.
 ' → Cardio must always support, not interfere with, the training split or goal.
@@ -219,7 +218,7 @@ planNotes.push(
 CARDIO DAY LIMITS:
 - You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
 - Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
-- Cardio is allowed only inside training days or recovery-based warm-ups and cooldowns.
+- Cardio is allowed only inside a full cardio day.
 
 5. ATHLETIC POWER MODE:
 
@@ -242,16 +241,6 @@ CARDIO DAY LIMITS:
 - Never insert athletic performance work on the user's Preferred Rest Days: ${userInfo.restPref}.
 - You may place these movements as openers (explosive primers), finishers, or secondary lifts, but do not let them increase total weekly training days.
 
-6. REST DAY CONTROL LOGIC:
-
-- 🧠 Rest Day Control Logic  
-- DO NOT create rest days. Only generate the exact number of training days the user requested.
-- If the user specifies ${userInfo.days} training days, you must return exactly ${userInfo.days} workout days. No more, no less.
-- Never assign workouts, cardio, or warm-ups on the user's Preferred Rest Days: ${userInfo.restPref}.
-- Any day you leave blank will automatically be filled by FitIQ's Recovery Vault you do not need to generate rest day content.
-- DO NOT insert a Sweat Day, bonus cardio day, or "active recovery" unless the user explicitly asks for 6 or more training days.
-- If the user does not specify a number of training days, default to 5 training days and leave the rest of the week blank.
-
 
 
 1. Gender Logic
@@ -259,7 +248,7 @@ CARDIO DAY LIMITS:
 - While training principles are similar across genders, biological and hormonal differences should influence programming.
 
 - Female users generally have:
-  → Greater fatigue resistance and recovery in moderate rep ranges (8–15)
+  → Greater fatigue resistance and in moderate rep ranges (8–15)
   → Lower absolute upper-body strength (especially pushing movements)
   → Higher injury risk in knees and shoulders if volume and form aren’t monitored
   → Better metabolic response to high reps, circuits, and lower rest periods
@@ -341,7 +330,6 @@ If goal is “Fat Loss”:
   → Use short rest periods (30–60 seconds)
   → Favor high-rep ranges (12–15) to maintain intensity
   → Use machines and cables to reduce injury risk under fatigue
-  → Include 1 optional circuit/cardio-style day if recovery allows
   → Do not exceed 5 exercises per day unless user explicitly requests
 
 If goal is “Muscle Gain” or “Hypertrophy”:
@@ -428,7 +416,6 @@ INSIGHT RULES:
 - Tone: Calm, sharp, smart — no hype, no emojis
 - Approved content types:
   • Strategy: “Ending with bodyweight dips maximizes pump without draining your CNS.”
-  • Recovery logic: “This is your second pull day, so volume is dialed down to reduce fatigue.”
   • Exercise logic: “Front-loading incline press activates upper chest before triceps fatigue sets in.”
   • Programming rationale: “You’re stacking volume on chest to hit hypertrophy ranges after a heavy opener.”
 - Banned:
