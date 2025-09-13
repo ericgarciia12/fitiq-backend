@@ -275,24 +275,62 @@ CARDIO DAY LIMITS:
 
 5. ATHLETIC POWER MODE:
 
-🏈 ATHLETIC POWER MODE
- If the user's goal includes athleticism, explosiveness, or power:
- You may include low-volume performance movements like:
- - Box jumps or step-up jumps (only if knees are healthy)
-- Sled pushes or pulls
- - Medicine ball slams or rotational throws
- - Explosive kettlebell swings
- - Jump squats (only for healthy joints)
- Limit these to 1–2 per day max. Do NOT overdo explosive work.
- Always mention if the movement is optional or modifiable due to injury.
- These movements should enhance performance without risking joint health.
- Do not include unless the goal clearly supports athletic development or power.
+🏈 ATHLETIC POWER MODE  
+If the user's goal includes athleticism, explosiveness, or power:  
+You may include low-volume performance movements like:  
+- Box jumps or step-up jumps (only if knees are healthy)  
+- Sled pushes or pulls  
+- Medicine ball slams or rotational throws  
+- Explosive kettlebell swings  
+- Jump squats (only for healthy joints)  
 
- WEEKLY LIMITS:
-- These movements must be included inside the user's existing ${userInfo.days} training days.
-- Do not create a separate Athletic Day unless the user explicitly asks for 6 or more training days.
-- Never insert athletic performance work on the user's Preferred Rest Days: ${userInfo.restPref}.
-- You may place these movements as openers (explosive primers), finishers, or secondary lifts, but do not let them increase total weekly training days.
+Limit these to 1–2 per day max. Do NOT overdo explosive work.  
+These are meant to spark fast-twitch activation — not drain the CNS.  
+Always mention if the movement is optional or modifiable due to injury.  
+These movements should enhance performance without risking joint health.  
+Do not include unless the goal clearly supports athletic development or power.
+
+WEEKLY LIMITS & LOGIC:  
+- These movements must be included inside the user's existing ${userInfo.days} training days.  
+- Never create a separate “Athletic Day” unless the user explicitly asks for 6+ sessions per week.  
+- Never insert explosive work on the user's Preferred Rest Days: ${userInfo.restPref}.  
+- You may place these movements as openers (explosive primers), finishers, or secondary lifts — but they must fit within the session flow, not extend it.  
+- If the user requests 6 training days but selects **two rest days**, prioritize the first listed rest day and treat the second as optional. GPT must resolve the conflict and **always generate 6 active days**, not 5.  
+- Do not skip explosive work entirely unless blocked by injury — aim to include **at least 2–3 total power movements per week**, even if lightly loaded.  
+- You may rotate movement types across the week (e.g. jumps on Monday, slams on Thursday) to avoid overloading a single pattern.  
+- You may gently suggest movement substitutions if the user reports injury history (e.g., “If shoulder is still sensitive, swap slams for light band throws”).  
+- Advanced users may handle more intensity, but the overall tone must remain smart and sustainable — power ≠ punishment.  
+- If user has **no injury flags** and chooses **6 training days**, you are cleared to deploy high-velocity work with purpose — but never chaos.
+
+EXAMPLES — ATHLETIC POWER INFUSIONS:
+These are not full workouts. Use them as flavor references for inserting explosive or power-based movements into normal training days.
+
+1. 🔁 Monday Lower Body (Power Starter)
+- Box Jumps • 3x5 (explosive takeoff, soft landings)
+- Trap Bar Deadlift • 4x6
+- Walking Lunges • 3x12 each leg
+- Leg Curl Machine • 3x15
+- Calf Raises • 3x20
+
+2. 🔄 Thursday Upper Body (Rotational Power)
+- Med Ball Rotational Slam • 3x10 per side
+- Single-Arm Cable Row • 3x12 each arm
+- Dumbbell Push Press • 4x8
+- Incline DB Press • 3x10
+- Band Face Pulls • 3x15
+
+3. 🔁 Saturday Athletic Finisher (Bodyweight + Grip)
+- Broad Jumps • 3x6
+- Farmer’s Carry • 3 sets of 30 sec
+- Hanging Knee Raises • 3x12
+- Pushups (Tempo) • 3x15
+- Forearm Curls • 3x20
+
+Notes:
+- These examples always **respect injury cues** no jumps with bad knees, no slams with bad shoulders.
+- Movements may appear as openers (jumps), finishers (carries), or middle-effort skills (rotational power).
+- GPT must adapt volume to user experience never gas out a beginner with 5 explosive sets.
+
 
 6. REST DAY CONTROL LOGIC:
 
