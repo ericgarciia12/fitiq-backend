@@ -22,7 +22,8 @@ app.post("/generate-split", async (req, res) => {
     return res.status(400).json({ error: "Missing user info for plan generation." });
   }
 
-const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
+  const prompt = `You are an elite AI coach designing a 7-day gym workout split for a user.
+
 
 USER PROFILE: 
 - Age: ${userInfo.age}
@@ -42,24 +43,6 @@ TRAINING STRUCTURE RULES:
 - Do not insert bonus workouts or cardio days unless the user explicitly says they want 6+ training days.
 - The user's preferred rest days are: ${userInfo.restPref}. These days must always remain empty. Do not place any workouts, cardio, or warm-ups on these days.
 - Rest day logic is managed by the app. Your job is to create training days only — no exceptions.
-
-FORMAT RULES (DO NOT BREAK):
-- Your entire response must be valid JSON. Do not include any intro text, commentary, or backticks.
-- Return a JSON array of 7 objects — one per day (training day or rest day).
-- Each day must use the format below:
-
-{
-  "title": "Workout Title or 'Rest Day'",
-  "exercises": ["Exercise 1 • sets x reps", "Exercise 2 • sets x reps"]
-}
-- For rest days, return:
-{
-  "title": "Rest Day",
-  "exercises": []
-}
-
-Do not add any extra formatting or text. Your response must be clean, valid JSON only.
-
 
 INTELLIGENT PLAN LOGIC:
 
@@ -178,6 +161,75 @@ planNotes.push(
 - Do not create additional Sweat Days or Cardio Days unless user explicitly wants 6 training days.
 - All gym logic, movement selection, and weekly structure must be fully contained within the user's requested ${userInfo.days} training days. Do not exceed this number or overwrite the user's preferred rest days: ${userInfo.restPref}.
 
+
+
+4. Add Cardio Based on Goal + Setup:
+
+- Fat Loss Goals:
+  → Add 15–25 min of steady-state cardio post-lift or in a separate low-intensity session.
+  → ✅ Best options: treadmill incline walk, elliptical, recumbent bike, stair stepper, Arc Trainer.
+  → ✅ Encourage high step count (8–12k+ daily) via walking, chores, or treadmill sessions.
+  → Optional: Assign 1 full-body cardio circuit (Sweat Day) for movement variety and higher burn.
+  → Never assign more than 40 total minutes of cardio per day unless explicitly asked.
+
+- Endurance Goals:
+  → Prioritize longer steady-state sessions (30–45 min) 3–4x/week.
+  → Rotate between machines to reduce wear: upright bike, elliptical, treadmill (flat), rower.
+  → Allow heart-rate guided sessions (Zone 2) if mentioned by user.
+  → May include one tempo/interval hybrid if recovery is managed.
+
+- Beginner Users:
+  → ALWAYS assign a 5–10 min warm-up: low-impact cardio only (bike, walk, elliptical).
+  → ✅ Machines: upright bike, treadmill walk (flat), Arc Trainer, slow rower.
+  → ❌ NEVER assign stair stepper, HIIT, sprints, battle ropes, or jump rope.
+  → ❌ No intervals unless user specifically asks.
+  → Keep cardio capped at 20 min unless otherwise requested.
+
+- Planet Fitness Users:
+  → Prioritize PF machine access: treadmill, elliptical, Arc Trainer, recumbent bike.
+  → ✅ Optional: stair stepper or rower ONLY if no joint issues.
+  → Avoid giving outdoor cardio — PF is indoor gym focused.
+  → ✅ Emphasize PF’s “Purple Zone” cardio if user mentions it — this is their fat-burn area.
+  → 2–3x/week of steady cardio is recommended post-lift (10–20 min).
+
+- Gold’s Gym / Full Gym Users:
+  → Assume access to full range of machines and functional tools.
+  → ✅ Rotate between: incline treadmill, stair stepper, upright bike, rower, elliptical, ski erg.
+  → ✅ Optional: sled pushes, battle ropes, assault bike, VersaClimber, stairmill.
+  → Match machine to user's recovery level and goal — don’t overload legs after squat days.
+  → Add warm-ups or finishers with intent (not filler).
+
+- Users with Injuries:
+  → Knee Pain:
+    ❌ Avoid stairs, impact cardio, jump rope, sprints, or high incline.
+    ✅ Use seated options: recumbent bike, slow elliptical, upright bike (low resistance).
+  → Back Pain:
+    ❌ Avoid rowers, unsupported walking, twisting ab finishers, and stair climbers.
+    ✅ Use treadmill on flat grade (with arms supported), seated bike, arm erg.
+  → Shoulder Pain:
+    ✅ Any cardio that doesn’t aggravate arms — bikes, stairmill (no handles), treadmill.
+    → If arm swing causes pain, choose hands-free options only.
+
+- Advanced / Athletic Users:
+  → You may assign 1–2 high-intensity days ONLY if the user explicitly wants conditioning or power.
+  → ✅ Allowed intervals:
+    – 20s sprint / 90s walk × 6  
+    – EMOMs (sled push, assault bike, jump rope, battle ropes)  
+    – 5–10 min finishers (bike burnouts, med ball slams, rope ladders)
+  → ✅ Only insert these IF joints are healthy and goal mentions performance, athleticism, or speed.
+  → ❌ NEVER assign box jumps, sleds, or sprints if injury or excess weight is present.
+
+- General Cardio Guidelines:
+  → Never assign cardio on leg day unless user is conditioned or goal demands it.
+  → Recovery day cardio = low speed walking, incline treadmill (no hands), light cycling (5–15 min).
+  → DO NOT assign cardio randomly — always match it to user goal and gym access.
+  → GPT should explain logic if adding cardio: "to improve stamina", "to accelerate fat loss", etc.
+  → Cardio must complement — not conflict with — the training split.
+
+CARDIO DAY LIMITS:
+- You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
+- Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
+- Cardio is allowed only inside training days or recovery-based warm-ups and cooldowns.
 
 5. ATHLETIC POWER MODE:
 
@@ -445,7 +497,7 @@ EXAMPLES:
     "Cable Kickbacks • 3x15 each leg",
     "Glute Bridges (bodyweight) • 3 sets to failure"
   ],
-
+  "insight": "This day is all about deep posterior chain work use controlled reps and prioritize full hip extension at the top of each movement."
 }
 
 2. Fat Loss — Planet Fitness
@@ -458,7 +510,7 @@ EXAMPLES:
     "Rope Triceps Pushdowns • 3x15 (superset with next)",
     "EZ Bar Curls (Machine) • 3x12"
   ],
- 
+  "insight": "Today’s goal is to spike heart rate and volume minimal rest, high reps, and lots of tension across pushing and pulling planes."
 }
 
 3. Strength (Male) — Full Gym
@@ -471,7 +523,7 @@ EXAMPLES:
     "Hammer Curls • 3x12 (superset with next)",
     "EZ Bar Curls • 3 sets to failure"
   ],
- 
+  "insight": "This is your heavy vertical and horizontal pull day focus on full range and scapular retraction to maximize back growth."
 }
 
 4. Beginner — Planet Fitness
@@ -484,7 +536,7 @@ EXAMPLES:
     "Dumbbell Shoulder Press (light) • 2x15",
     "Plank Hold • 3 rounds of 30 seconds"
   ],
- 
+  "insight": "This full body intro helps build base strength and coordination. Don’t rush reps learn the patterns and breathe through each set."
 }
 
 5. Glute Growth (Female) — Planet Fitness
@@ -496,7 +548,7 @@ EXAMPLES:
     "Cable Kickbacks • 3x15",
     "Glute Bridges (machine) • 3 sets to failure"
   ],
- 
+  "insight": "Keep constant tension throughout every rep especially on kickbacks and thrusts. Your glutes respond best to pause and squeeze."
 }
 
 6. Powerbuilding — Full Gym
@@ -509,29 +561,39 @@ EXAMPLES:
     "Rope Overhead Triceps Extensions • 3x15",
     "Bodyweight Dips • 2 sets to failure"
   ],
- 
+  "insight": "You're balancing max load with hypertrophy today hit your compound hard, then chase the pump with tight, high-rep finishers."
 }
-7. Fat Loss — Planet Fitness (Vault)
+7. Fat Loss — Planet Fitness
 {
-  "title": "Low Impact Recovery (UI Only)",
+  "title": "Cardio Sweat Session (LISS Focus)",
   "exercises": [
-    "Incline Treadmill Walk • 10–15 min @ 3.0 mph, incline 5–8%",
-    "Recumbent Bike • 5–10 min easy pace",
-    "Elliptical Glide • 5 min cooldown flow"
+    "Incline Treadmill Walk • 20 min @ 3.0–3.5 mph, incline 10–12%",
+    "Elliptical Intervals • 3 rounds of 3 min fast / 2 min slow",
+    "Recumbent Bike • 10 min steady pace (heart rate zone 2)"
   ],
- 
+  "insight": "This low-impact session is built to burn fat without frying your joints. Breathe steady, maintain rhythm, and let sweat do the work."
+}
+8. Athletic Conditioning — Full Gym
+{
+  "title": "HIIT Conditioning Finisher",
+  "exercises": [
+    "Air Bike Sprints • 6 rounds of 20 sec sprint / 90 sec rest",
+    "Sled Pushes • 4x30 yards (moderate load)",
+    "Jump Rope Intervals • 5 rounds of 1 min on / 30 sec off"
+  ],
+  "insight": "This is performance cardio — short bursts, long recoveries. Push max intensity, but only if your legs still have gas post-lift."
+}
+9. Beginner — Planet Fitness
+{
+  "title": "Cardio Warmup + Recovery",
+  "exercises": [
+    "Upright Bike • 5 min warmup pace",
+    "Elliptical Glide • 10 min at easy intensity",
+    "Treadmill Flat Walk • 5–10 min cooldown (optional)"
+  ],
+  "insight": "Perfect for warming up before lifting or getting light movement on a rest day. Low stress, low impact, and beginner-safe."
 }
 
-8. Athletic Conditioning — Full Gym (Vault)
-{
-  "title": "Recovery Conditioning Flow (UI Only)",
-  "exercises": [
-    "Air Bike Flush • 3x2 min moderate pace",
-    "Sled Drags (Light) • 2x20 yards",
-    "Jump Rope Flow • 3x30 sec rhythm work"
-  ],
- 
-}
 
 
 If the day is a rest day, return:
