@@ -38,12 +38,6 @@ USER PROFILE:
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
 - Preferred Rest Days: ${userInfo.restPref}
 
-TRAINING STRUCTURE RULES:
-- You must create exactly ${userInfo.days} training days per week. No more, no less.
-- Do not insert bonus workouts or cardio days unless the user explicitly says they want 6+ training days.
-- The user's preferred rest days are: ${userInfo.restPref}. These days must always remain empty. Do not place any workouts, cardio, or warm-ups on these days.
-- Rest day logic is managed by the app. Your job is to create training days only — no exceptions.
-
 INTELLIGENT PLAN LOGIC:
 
 1. Apply Injury Logic (Red Flag Filter):
@@ -550,16 +544,7 @@ EXAMPLES:
   ],
   "insight": "You're balancing max load with hypertrophy today hit your compound hard, then chase the pump with tight, high-rep finishers."
 }
-7. Fat Loss — Planet Fitness
-{
-  "title": "Cardio Sweat Session (LISS Focus)",
-  "exercises": [
-    "Incline Treadmill Walk • 20 min @ 3.0–3.5 mph, incline 10–12%",
-    "Elliptical Intervals • 3 rounds of 3 min fast / 2 min slow",
-    "Recumbent Bike • 10 min steady pace (heart rate zone 2)"
-  ],
-  "insight": "This low-impact session is built to burn fat without frying your joints. Breathe steady, maintain rhythm, and let sweat do the work."
-}
+
 
 
 
