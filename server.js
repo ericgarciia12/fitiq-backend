@@ -50,7 +50,6 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
-// 🧠 Rest Day Control Logic — FINAL PATCH
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
@@ -214,56 +213,59 @@ planNotes.push(
 
 
 
-' 4. Add Cardio Based on Goal + Setup (GPT-Approved)
+4. Add Cardio Based on Goal + Setup (GPT-Approved)
 
-' Fat Loss Goals:
-' → Add 15–25 min of steady-state cardio post-lift only (no separate sessions).
-' → Best options: treadmill incline walk, elliptical, recumbent bike, Arc Trainer.
-' → Encourage higher daily step count (8–12k+) through walking or chores.
-' → NEVER assign a full cardio day or Sweat Day unless user specifically asks.
-' → Cardio must follow resistance training and match user's joint condition.
+Fat Loss Goals:
+→ Cardio can appear **up to 2x/week** once post-lift, and once as a dedicated Sweat Day (only if the user has 5+ training days).
+→ If user mentions “cardio,” “stamina,” or “fat burning,” prioritize at least 1 dedicated cardio day.
+→ GPT may assign 1 full cardio-only day (Planet Sweat / Fat Burn Day) if joints allow — especially if the user struggles with endurance.
+→ If user has leg/knee issues, revert to post-lift cardio only (recumbent bike, Arc Trainer).
+→ Encourage daily movement (walks, chores, etc.) on rest days, but GPT doesn't track this.
+→ Best machines: treadmill (incline), elliptical, recumbent bike, Arc Trainer.
 
-' Endurance Goals:
-' → Insert 25–40 min of low-to-moderate steady-state cardio after lifts on up to 3 training days/week.
-' → Rotate machines: treadmill (flat), upright bike, elliptical, rower.
-' → Allow Zone 2 logic if user mentions heart-rate goals.
-' → No separate cardio-only days unless user explicitly asks for them.
+Endurance Goals:
+→ Insert 25–40 min of low/moderate steady-state cardio post-lift up to 3x/week.
+→ Rotate machines (treadmill, elliptical, bike, rower).
+→ Zone 2 logic allowed if user mentions HR tracking.
+→ NEVER assign separate cardio-only days unless user explicitly requests them.
 
-' Beginner Users:
-' → Include 5–10 min warm-up before workouts (bike, walk, elliptical).
-' → Avoid: stair stepper, HIIT, sprints, jump rope, or battle ropes.
-' → Cap cardio at 15–20 min max unless user asks for more.
-' → NEVER assign cardio as its own session.
+Beginner Users:
+→ Include 5–10 min warm-up before workouts (bike, walk, elliptical).
+→ Avoid: stair stepper, HIIT, sprints, jump rope, or battle ropes.
+→ Cap cardio at 20 min unless user asks for more.
+→ NEVER assign cardio as a full session.
 
-' Planet Fitness Users:
-' → Cardio must use PF machines only: treadmill, elliptical, Arc Trainer, recumbent bike.
-' → If user mentions “Purple Zone,” it's okay to include a post-lift 10–20 min session.
-' → No outdoor cardio; must fit indoor PF environment.
-' → NEVER assign separate cardio/recovery sessions.
+Planet Fitness Users:
+→ Cardio must use PF machines: treadmill, elliptical, Arc Trainer, recumbent bike.
+→ If user mentions “Purple Zone,” allow up to 2x/week of cardio, including 1 full day.
+→ NEVER assign outdoor or recovery cardio days unless requested.
 
-' Gold’s Gym / Full Gym Users:
-' → Rotate: incline treadmill, stair stepper, upright bike, elliptical, ski erg, rower.
-' → Optional: battle ropes, sled pushes, VersaClimber — only as finishers.
-' → GPT must avoid overloading legs after leg day.
-' → Add cardio only after training sessions or as warm-up.
+Gold’s Gym / Full Gym Users:
+→ Rotate: incline treadmill, stair stepper, upright bike, elliptical, ski erg, rower.
+→ Optional: battle ropes, sled pushes, VersaClimber — only as finishers.
+→ Avoid cardio after leg day (unless light).
+→ Add cardio only after lifting sessions or on standalone cardio days (fat loss only).
 
-' Users with Injuries:
-' → Knee Pain: Use recumbent bike, upright bike (light), elliptical. Avoid stairs, sprints, jump rope.
-' → Back Pain: Use treadmill (flat), seated bike, arm erg. Avoid unsupported walking, rowers.
-' → Shoulder Pain: Use cardio machines without arm movement if needed (treadmill, stairmill no handles).
+Users with Injuries:
+→ Knee Pain: Use recumbent bike, upright bike, elliptical. Avoid stairs, sprints, jump rope.
+→ Back Pain: Use treadmill (flat), seated bike, arm erg. Avoid unsupported walking, rowers.
+→ Shoulder Pain: Use machines with no arm movement: treadmill, stairmill (no handles), bike.
 
-' Advanced / Athletic Users:
-' → If user wants performance work, insert 1–2 finishers/week:
-'     • 20s sprint / 90s walk × 6
-'     • EMOMs: sled push, battle ropes, jump rope (only if asked)
-'     • Burnouts: 5–10 min on bike, rower, etc.
-' → Do not assign high-intensity cardio unless user’s joints and goal permit it.
+Advanced / Athletic Users:
+→ May receive 1–2 finishers/week:
+    • 20s sprint / 90s walk × 6
+    • EMOMs: sled push, battle ropes, jump rope (only if requested)
+    • Burnouts: 5–10 min on bike, rower, etc.
+→ Do not assign intense cardio unless goal and joints match.
 
-' General Guidelines:
-' → NEVER assign separate cardio sessions unless user requests them directly.
-' → All cardio must follow lifting or warm-up logic — GPT does not create cardio days.
-' → Cardio must always support, not interfere with, the training split or goal.
-' → GPT may explain cardio reasoning briefly if helpful: added to support stamina, etc.
+General Guidelines:
+→ GPT may assign 1–2 cardio sessions/week for Fat Loss users — or Athletic Power users who mention “conditioning,” “gas tank,” or “speed.”
+→ NEVER assign cardio-only sessions for other goals unless user asks directly.
+→ All cardio must follow logic: warm-up, post-lift, or full day (Fat Loss only).
+→ GPT can explain reasoning briefly (e.g., “to support fat burn and stamina”).
+
+
+
 
 
 CARDIO DAY LIMITS:
@@ -601,13 +603,13 @@ EXAMPLES:
 }
 7. Fat Loss — Planet Fitness
 {
-  "title": "Cardio Sweat Session (LISS Focus)",
+  "title": "Cardio Sweat Session (LISS + Tempo Combo)",
   "exercises": [
     "Incline Treadmill Walk • 20 min @ 3.0–3.5 mph, incline 10–12%",
-    "Elliptical Intervals • 3 rounds of 3 min fast / 2 min slow",
-    "Recumbent Bike • 10 min steady pace (heart rate zone 2)"
+    "Elliptical Push Rounds • 3 sets: 3 min high cadence (RPE 8), 2 min recovery (RPE 4)",
+    "Row Machine Cruise • 10 min steady pace (RPE 6), focus on long pulls"
   ],
-  "insight": "This low-impact session is built to burn fat without frying your joints. Breathe steady, maintain rhythm, and let sweat do the work."
+  "insight": "This cardio flow builds a smooth heart rate climb — incline power, mid-range intervals, and a final row finish to engage the full body without pounding the joints. Breath stays calm, effort stays real."
 }
 8. Fat Burn Blitz (HIIT x LISS Combo)
 {
@@ -756,9 +758,6 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
-
-function getSystemPrompt(mode, dateToday) {
-  switch (mode) {
   
   case "trap":
   return `Today is ${dateToday}.
