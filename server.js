@@ -52,6 +52,8 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
+// 🧠 Rest Day Control Logic — FINAL PATCH
+
 - You are NOT allowed to create, invent, or insert your own rest days.
 
 - You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
@@ -70,6 +72,20 @@ These days must remain fully empty of workouts, cardio, or mobility — nothing 
 - Do NOT leave rest days undefined, missing, or blank — you MUST include this object for each one.
 
 - You are NOT smarter than the user’s recovery preferences. Do not attempt to override their choices. This is not up for debate.
+
+- You MUST return a complete 7-day week (Monday through Sunday), even if only ${userInfo.days} are training days.
+
+- Any non-training days must still be included with this object:
+{
+  "title": "Rest Day",
+  "exercises": [],
+  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
+}
+
+- Do NOT return undefined, null, or skip days.
+
+- You MUST return 7 total day objects every time — no exceptions.
+
 
 
 
