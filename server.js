@@ -758,6 +758,9 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
+
+function getSystemPrompt(mode, dateToday) {
+  switch (mode) {
   
   case "trap":
   return `Today is ${dateToday}.
