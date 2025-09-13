@@ -38,7 +38,7 @@ USER PROFILE:
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
 - Preferred Rest Days: ${userInfo.restPref}
 
-IMPORTANT RULE  DO NOT VIOLATE:
+IMPORTANT RULE — DO NOT VIOLATE:
 You are NOT allowed to create, invent, or include any rest days of your own.
 
 The app will insert rest days based on the user's preference. 
@@ -49,28 +49,6 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - You MUST return exactly ${userInfo.days} WORKOUT days — not 6, not 5, not 3.
 - DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
-
-// 🧠 Rest Day Control Logic — FINAL PATCH
-
-- You are NOT allowed to create, invent, or insert your own rest days.
-
-- You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
-These days must remain fully empty of workouts, cardio, or mobility — nothing extra.
-
-- However, for every preferred rest day, you MUST still return a simple rest object:
-
-{
-  "title": "Rest Day",
-  "exercises": [],
-  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
-}
-
-- This allows the FitIQ system to properly display rest days using our Recovery Vault.
-
-- Do NOT leave rest days undefined, missing, or blank — you MUST include this object for each one.
-
-- You are NOT smarter than the user’s recovery preferences. Do not attempt to override their choices. This is not up for debate.
-
 
 
 
@@ -626,7 +604,6 @@ EXAMPLES:
   ],
   "insight": "No pounding, no impact — just clean cardiovascular work. Burn calories without pain. Low stress, high payoff."
 }
-
 
 
 
