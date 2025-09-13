@@ -50,6 +50,11 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
+You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
+These days must remain fully empty. You must place workouts ONLY on the other days.
+You are not smarter than the user's recovery preferences. Do not attempt to override their choices. This is not up for debate.
+
+
 Failure to follow these rules will result in your plan being rejected. You must follow every rule precisely.
 
 
@@ -575,7 +580,36 @@ EXAMPLES:
   ],
   "insight": "This low-impact session is built to burn fat without frying your joints. Breathe steady, maintain rhythm, and let sweat do the work."
 }
-
+8. Fat Burn Blitz (HIIT x LISS Combo)
+{
+  "title": "Fat Burn Blitz (HIIT x LISS Combo)",
+  "exercises": [
+    "StairMaster Push Intervals • 5 rounds: 30 sec sprint / 90 sec slow",
+    "Jump Rope + Walk Circuit • 5 rounds: 1 min jump rope → 2 min walk",
+    "Treadmill Cool Zone • 12 min incline walk (incline 8%, speed 3.0)"
+  ],
+  "insight": "This hybrid day spikes your heart rate with intervals, then steadies into fat-burning mode. Perfect mix for metabolic fire without the barbell strain."
+}
+9. Conditioning Burnout (Machine Rotation)
+{
+  "title": "Conditioning Burnout (Machine Rotation)",
+  "exercises": [
+    "Row Machine • 5 min warm-up, 10 min intervals (20 sec fast / 40 sec slow)",
+    "Bike Sprint Ladder • 15 sec sprint → 45 sec cruise x 6 sets",
+    "Treadmill Power Walk • 15 min, incline 12%, hands off rails"
+  ],
+  "insight": "This is a no-weight sweat session. Heart rate stays high, legs keep moving, and your lungs get tested. Hydrate up — this one’s spicy."
+}
+.10 Planet Sweat Tour (Low Joint Stress
+{
+  "title": "Planet Sweat Tour (Low Joint Stress)",
+  "exercises": [
+    "Arc Trainer • 15 min moderate pace",
+    "Recumbent Bike • 15 min with steady cadence",
+    "Elliptical • 10 min cooldown flow (no resistance push)"
+  ],
+  "insight": "No pounding, no impact — just clean cardiovascular work. Burn calories without pain. Low stress, high payoff."
+}
 
 
 
@@ -694,6 +728,8 @@ app.listen(PORT, () => {
   console.log(`✅ FitIQ GPT backend running on port ${PORT}`);
 });
 
+function getSystemPrompt(mode, dateToday) {
+  switch (mode) {
   
   case "trap":
   return `Today is ${dateToday}.
