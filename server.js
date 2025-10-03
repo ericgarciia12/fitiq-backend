@@ -36,7 +36,8 @@ USER PROFILE:
 - Experience Level: ${userInfo.experience} (Beginner, Intermediate, Advanced)
 - Injuries / Pain Zones: ${userInfo.injuries} (e.g. knees, shoulders, lower back)
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
-- Preferred Rest Days: ${userInfo.matchedRestDays.join(", ")}
+- Preferred Rest Days: ${userInfo.restPref}
+
 
 
 const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
