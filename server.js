@@ -45,10 +45,9 @@ You are NOT allowed to create, invent, or include any rest days of your own.
 The app will insert rest days based on the user's preference. 
 Your ONLY job is to return exactly ${userInfo.days} workout days. 
 
-DO NOT add recovery days, cardio-only days, active rest days, mobility days, or bonus tips unless explicitly requested.
+DO NOT add recovery days, cardio-only days, active rest days, mobility days.
 
 - You MUST return exactly ${userInfo.days} WORKOUT days — not 6, not 5, not 3.
-- DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
 
@@ -60,18 +59,13 @@ You must fully respect and obey the user’s time availability and recovery need
 2. Preferred Rest Days: ${userInfo.restPref}
 
 This means:
-- You CANNOT assign more total rest days than the user’s availability allows (e.g. if they can only train 4 days, don’t insert 3 rest days).
 - You MUST include the exact number of rest days requested — no more, no less.
-- Spread the rest days logically across the week. NEVER place two rest days back-to-back unless specifically requested.
-- NEVER forget to include them. If the user asks for 2 rest days, and you provide 0 or 1, that is an error.
-- These rest days MUST appear as labeled days in the split (e.g., “Wednesday: Rest”).
+- NEVER forget to include them. If the user asks for 2 rest days, and you provide 0 or 1, that is an error MUST be in EXACT match.
 - You MUST generate a full 7-day split: Monday through Sunday.
 - You MUST include exactly ${userInfo.restPref.length} rest days, placed on the exact days listed above.
 - You MUST include exactly ${userInfo.days} training days — no more, no less.
-- Each rest day must be explicitly labeled as “Rest” on the correct day (e.g., “Wednesday: Rest”).
 - Do not skip any days in the week.
-- Do not guess which days are rest — you must use the user's provided restPref array.
-- Do not place rest days back-to-back unless they appear consecutively in restPref.
+- Do not guess which days are rest you must use the user's provided restPref array.
 
 This rule is FINAL and must be obeyed with zero deviation.
 
@@ -95,14 +89,6 @@ This rule is MANDATORY and cannot be violated under any condition.
 - You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
 These days must remain fully empty of workouts, cardio, or mobility — nothing extra.
 
-- However, for every preferred rest day, you MUST still return a simple rest object:
-
-{
-  "title": "Rest Day",
-  "exercises": [],
-  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
-}
-
 - This allows the FitIQ system to properly display rest days using our Recovery Vault.
 
 - Do NOT leave rest days undefined, missing, or blank — you MUST include this object for each one.
@@ -110,13 +96,6 @@ These days must remain fully empty of workouts, cardio, or mobility — nothing 
 - You are NOT smarter than the user’s recovery preferences. Do not attempt to override their choices. This is not up for debate.
 
 - You MUST return a complete 7-day week (Monday through Sunday), even if only ${userInfo.days} are training days.
-
-- Any non-training days must still be included with this object:
-{
-  "title": "Rest Day",
-  "exercises": [],
-  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
-}
 
 - Do NOT return undefined, null, or skip days.
 
@@ -127,9 +106,8 @@ These days must remain fully empty of workouts, cardio, or mobility — nothing 
 
 TRAINING STRUCTURE RULES:
 - You must create exactly ${userInfo.days} training days per week. No more, no less.
-- Do not insert bonus workouts or cardio days unless the user explicitly says they want 6+ training days.
-- The user's preferred rest days are: ${userInfo.restPref}. These days must always remain empty. Do not place any workouts, cardio, or warm-ups on these days.
-- Rest day logic is managed by the app. Your job is to create training days only — no exceptions.
+- The user's preferred rest days are: ${userInfo.restPref}. Must Respect user.
+
 
 INTELLIGENT PLAN LOGIC:
 
