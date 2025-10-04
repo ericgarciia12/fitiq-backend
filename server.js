@@ -52,6 +52,41 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
 
+🚨 STRICT INSTRUCTION BLOCK — DO NOT IGNORE 🚨
+
+You must fully respect and obey the user’s time availability and recovery needs. The following two parameters are non-negotiable:
+
+1. Days Available: ${userInfo.days}
+2. Preferred Rest Days: ${userInfo.restPref}
+
+This means:
+- You CANNOT assign more total rest days than the user’s availability allows (e.g. if they can only train 4 days, don’t insert 3 rest days).
+- You MUST include the exact number of rest days requested — no more, no less.
+- Spread the rest days logically across the week. NEVER place two rest days back-to-back unless specifically requested.
+- NEVER forget to include them. If the user asks for 2 rest days, and you provide 0 or 1, that is an error.
+- These rest days MUST appear as labeled days in the split (e.g., “Wednesday: Rest”).
+- You MUST generate a full 7-day split: Monday through Sunday.
+- You MUST include exactly ${userInfo.restPref.length} rest days, placed on the exact days listed above.
+- You MUST include exactly ${userInfo.days} training days — no more, no less.
+- Each rest day must be explicitly labeled as “Rest” on the correct day (e.g., “Wednesday: Rest”).
+- Do not skip any days in the week.
+- Do not guess which days are rest — you must use the user's provided restPref array.
+- Do not place rest days back-to-back unless they appear consecutively in restPref.
+
+This rule is FINAL and must be obeyed with zero deviation.
+
+
+- You must deliver a full 7-day split: Monday through Sunday.
+- The number of **training days** must exactly match the user's availability (days).
+- The number of **rest days** must exactly match the user’s preferred rest days (restPref).
+- The specific days labeled as “Rest” must match the user’s preference (e.g., ['Wednesday', 'Sunday']). This is **non-negotiable**.
+- DO NOT guess or swap rest days — follow the provided restPref days **exactly**.
+- Never add extra rest days. Never forget rest days. Never guess.
+
+
+This rule is MANDATORY and cannot be violated under any condition.
+
+
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
