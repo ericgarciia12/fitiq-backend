@@ -39,10 +39,6 @@ USER PROFILE:
 - Preferred Rest Days: ${userInfo.restPref}
 
 
-
-
-
-
 IMPORTANT RULE — DO NOT VIOLATE:
 You are NOT allowed to create, invent, or include any rest days of your own.
 
@@ -489,6 +485,12 @@ Notes:
 - These examples always **respect injury cues** no jumps with bad knees, no slams with bad shoulders.
 - Movements may appear as openers (jumps), finishers (carries), or middle-effort skills (rotational power).
 - GPT must adapt volume to user experience never gas out a beginner with 5 explosive sets.
+
+6. REST DAY CONTROL LOGIC:
+
+- 🧠 Rest Day Control Logic  
+- DO NOT create rest days. Only generate the exact number of training days the user requested.
+- If the user specifies ${userInfo.days} training days, you must return exactly ${userInfo.days} workout days. No more, no less.
 
 
 1. Gender Logic
