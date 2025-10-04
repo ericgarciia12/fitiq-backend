@@ -38,48 +38,17 @@ USER PROFILE:
 - Specific Muscle Focus: ${userInfo.weakPoints} (e.g. left glute, rear delts, upper chest)
 - Preferred Rest Days: ${userInfo.restPref}
 
-
 IMPORTANT RULE — DO NOT VIOLATE:
 You are NOT allowed to create, invent, or include any rest days of your own.
 
 The app will insert rest days based on the user's preference. 
 Your ONLY job is to return exactly ${userInfo.days} workout days. 
 
-DO NOT add recovery days, cardio-only days, active rest days, mobility days.
+DO NOT add recovery days, cardio-only days, active rest days, mobility days, or bonus tips unless explicitly requested.
 
 - You MUST return exactly ${userInfo.days} WORKOUT days — not 6, not 5, not 3.
+- DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
-
-
-🚨 STRICT INSTRUCTION BLOCK — DO NOT IGNORE 🚨
-
-You must fully respect and obey the user’s time availability and recovery needs. The following two parameters are non-negotiable:
-
-1. Days Available: ${userInfo.days}
-2. Preferred Rest Days: ${userInfo.restPref}
-
-This means:
-- You MUST include the exact number of rest days requested — no more, no less.
-- NEVER forget to include them. If the user asks for 2 rest days, and you provide 0 or 1, that is an error MUST be in EXACT match.
-- You MUST generate a full 7-day split: Monday through Sunday.
-- You MUST include exactly ${userInfo.restPref.length} rest days, placed on the exact days listed above.
-- You MUST include exactly ${userInfo.days} training days — no more, no less.
-- Do not skip any days in the week.
-- Do not guess which days are rest you must use the user's provided restPref array.
-
-This rule is FINAL and must be obeyed with zero deviation.
-
-
-- You must deliver a full 7-day split: Monday through Sunday.
-- The number of **training days** must exactly match the user's availability (days).
-- The number of **rest days** must exactly match the user’s preferred rest days (restPref).
-- The specific days labeled as “Rest” must match the user’s preference (e.g., ['Wednesday', 'Sunday']). This is **non-negotiable**.
-- DO NOT guess or swap rest days — follow the provided restPref days **exactly**.
-- Never add extra rest days. Never forget rest days. Never guess.
-
-
-This rule is MANDATORY and cannot be violated under any condition.
-
 
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
@@ -89,6 +58,14 @@ This rule is MANDATORY and cannot be violated under any condition.
 - You are NOT allowed to override or change the user’s preferred rest days (${userInfo.restPref}).
 These days must remain fully empty of workouts, cardio, or mobility — nothing extra.
 
+- However, for every preferred rest day, you MUST still return a simple rest object:
+
+{
+  "title": "Rest Day",
+  "exercises": [],
+  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
+}
+
 - This allows the FitIQ system to properly display rest days using our Recovery Vault.
 
 - Do NOT leave rest days undefined, missing, or blank — you MUST include this object for each one.
@@ -97,17 +74,33 @@ These days must remain fully empty of workouts, cardio, or mobility — nothing 
 
 - You MUST return a complete 7-day week (Monday through Sunday), even if only ${userInfo.days} are training days.
 
+- Any non-training days must still be included with this object:
+{
+  "title": "Rest Day",
+  "exercises": [],
+  "insight": "Recovery is where growth happens. Fuel up, hydrate, and let your body rebuild."
+}
+
 - Do NOT return undefined, null, or skip days.
 
 - You MUST return 7 total day objects every time — no exceptions.
 
 
+IMPORTANT NOTES:
+
+- You must deliver a full 7-day split: Monday through Sunday.
+- The number of **training days** must exactly match the user's availability (days).
+- The number of **rest days** must exactly match the user’s preferred rest days (restPref).
+- The specific days labeled as “Rest” must match the user’s preference (e.g., ['Wednesday', 'Sunday']). This is **non-negotiable**.
+- DO NOT guess or swap rest days — follow the provided restPref days **exactly**.
+- Never add extra rest days. Never forget rest days. Never guess.
 
 
 TRAINING STRUCTURE RULES:
 - You must create exactly ${userInfo.days} training days per week. No more, no less.
-- The user's preferred rest days are: ${userInfo.restPref}. Must Respect user.
-
+- Do not insert bonus workouts or cardio days unless the user explicitly says they want 6+ training days.
+- The user's preferred rest days are: ${userInfo.restPref}. These days must always remain empty. Do not place any workouts, cardio, or warm-ups on these days.
+- Rest day logic is managed by the app. Your job is to create training days only — no exceptions.
 
 INTELLIGENT PLAN LOGIC:
 
@@ -226,7 +219,6 @@ planNotes.push(
 - Do not create additional Sweat Days or Cardio Days unless user explicitly wants 6 training days.
 - All gym logic, movement selection, and weekly structure must be fully contained within the user's requested ${userInfo.days} training days. Do not exceed this number or overwrite the user's preferred rest days: ${userInfo.restPref}.
 
-
 GLUTE MACHINE VARIETY POOL:
 
 - You have access to ALL the following glute exercises and machines. You must rotate from this pool across the week and avoid overusing the same few movements.
@@ -259,8 +251,6 @@ Glute Exercise Pool:
 
 - Use at least 3–5 different exercises per glute session — do not return the same combos twice in one week.
 
-- You now have access to a full glute equipment pool. Use this pool to build every glute session with maximum variety. Do not default to the same 3 exercises. Machines like seated abduction, glute bridge, frog pumps, landmine RDL, and cable pull-throughs must appear in rotation across the week.
-
 Back Exercise Pool:
 - Lat Pulldown  
 - Seated Cable Row  
@@ -275,6 +265,7 @@ Back Exercise Pool:
 
 You must rotate movements across all back sessions. Never repeat more than 1 exercise between days.
 
+
 Chest Exercise Pool:
 - Flat Bench Press (Only if barbell is available — not allowed at Planet Fitness)
 - Incline Dumbbell Press  
@@ -287,6 +278,7 @@ Chest Exercise Pool:
 - Smith Machine Press  
 
 Use a unique combo for each chest day. No bar-for-bar copies.
+
 
 Arm Exercise Pool:
 - EZ Bar Curl  
@@ -302,9 +294,10 @@ Arm Exercise Pool:
 
 Rotate at least 3 new movements between any arm-focused days.
 
+
 Leg Machine Pool:
 - Leg Press  
-- Hack Squat  
+- Hack Squat (If machine is present)
 - Walking Lunge  
 - Bulgarian Split Squat  
 - Goblet Squat  
@@ -314,8 +307,11 @@ Leg Machine Pool:
 - Lying Hamstring Curl  
 - Nordic Ham Curl  
 - RDL (Barbell, Dumbbell, Cable)  
+- Landmine Row (Only for Commercial or Power gyms)
+- Barbell Deadlift (Only if gym allows barbells)
 
 Avoid back-to-back use of leg press + curls only. Add variety in angle, load, and machine.
+
 
 Cardio Machine Rotation:
 - Stairmaster  
@@ -329,57 +325,6 @@ Cardio Machine Rotation:
 You must rotate machines if multiple cardio days exist. Never assign treadmill twice per week.
 
 
-DUPLICATE WORKOUT PREVENTION — REQUIRED
-
-- If any muscle group appears more than once in the 7‑day split (e.g. Glutes on Mon and Thurs), you MUST provide two completely different workouts.
-
-- You are ONLY allowed to repeat one exercise across both days (e.g. Hip Thrust can appear twice). All other exercises MUST be rotated or replaced.
-
-- You are NOT allowed to use the same exact 3–5 exercises in multiple days. Every day must feel unique and intentional — even when targeting the same muscle or weak point.
-
-- You MUST rotate machines, angles, tools, and styles. Example:
-    • Day 1 = Cable Kickbacks, Day 2 = Smith Step‑Ups  
-    • Day 1 = Seated Abduction, Day 2 = Banded Walks
-
-- Repeating the same list of exercises twice in one week is UNACCEPTABLE. It will be treated as a broken plan.
-
-- There are NO exceptions. Even if the user requests extra focus on a weak point (e.g. ${userInfo.weakPoints}), you must still design different exercises and setups for each day. Never provide the same workout bar‑for‑bar twice in one week.
-
-
-
-🔥 CARDIO INJECTION RULES — DO NOT IGNORE:
-
-- You MUST include **at least 2 cardio sessions per week** if:
-
-   • The user’s goal includes “fat loss” OR “endurance”
-   • OR the user’s weight is over 180 lbs
-   • OR the user has a BMI over 28 (estimate if not provided)
-
-- One session MUST be a **dedicated cardio day** (no lifting), using machines only.
-- One session MUST be **post-lift cardio** (after strength training).
-
-- If the user gives no rest day preference, default cardio-only day to **Saturday or Wednesday**.
-
-- Do NOT skip cardio. This is mandatory for fat loss users. No creative liberty allowed.
-
-- Recommended machines (ranked): 
-   1. Stairmaster or StepMill
-   2. Incline Treadmill
-   3. Arc Trainer
-   4. Elliptical
-   5. Recumbent Bike
-
-- If Stairmaster is available, you should prioritize using it at least once per week for fat loss users. This machine is HIGHLY effective.
-
-- You may alternate cardio intensity:
-   • One steady-state session (25–35 minutes)
-   • One light HIIT or interval session (optional)
-
-- Do NOT assign two treadmill sessions in the same week. Rotate machines.
-
-
-- Failure to include 2 cardio sessions for fat-loss or endurance users will result in invalid plans.
-- Cardio is **NOT optional** for fat loss, endurance, or overweight users. These sessions are mandatory.
 
 
 4. Add Cardio Based on Goal + Setup (GPT-Approved)
@@ -437,9 +382,10 @@ General Guidelines:
 
 
 
-
-
-
+CARDIO DAY LIMITS:
+- You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
+- Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
+- Cardio is allowed only inside a full cardio day.
 
 5. ATHLETIC POWER MODE:
 
@@ -499,11 +445,49 @@ Notes:
 - Movements may appear as openers (jumps), finishers (carries), or middle-effort skills (rotational power).
 - GPT must adapt volume to user experience never gas out a beginner with 5 explosive sets.
 
+
 6. REST DAY CONTROL LOGIC:
 
 - 🧠 Rest Day Control Logic  
 - DO NOT create rest days. Only generate the exact number of training days the user requested.
 - If the user specifies ${userInfo.days} training days, you must return exactly ${userInfo.days} workout days. No more, no less.
+- DO NOT insert a Sweat Day, bonus cardio day, or "active recovery" unless the user explicitly asks for 6 or more training days.
+
+
+🔥 CARDIO INJECTION RULES — DO NOT IGNORE:
+
+- You MUST include **at least 2 cardio sessions per week** if:
+
+   • The user’s goal includes “fat loss” OR “endurance”
+   • OR the user’s weight is over 180 lbs
+   • OR the user has a BMI over 28 (estimate if not provided)
+
+- One session MUST be a **dedicated cardio day** (no lifting), using machines only.
+- One session MUST be **post-lift cardio** (after strength training).
+
+- If the user gives no rest day preference, default cardio-only day to **Saturday or Wednesday**.
+
+- Do NOT skip cardio. This is mandatory for fat loss users. No creative liberty allowed.
+
+- Recommended machines (ranked): 
+   1. Stairmaster or StepMill
+   2. Incline Treadmill
+   3. Arc Trainer
+   4. Elliptical
+   5. Recumbent Bike
+
+- If Stairmaster is available, you should prioritize using it at least once per week for fat loss users. This machine is HIGHLY effective.
+
+- You may alternate cardio intensity:
+   • One steady-state session (25–35 minutes)
+   • One light HIIT or interval session (optional)
+
+- Do NOT assign two treadmill sessions in the same week. Rotate machines.
+
+- You may include a short explanation, like:  
+   “Stairmaster added to boost heart rate and calorie burn without stressing joints.”
+
+- Failure to include 2 cardio sessions for fat-loss or endurance users will result in invalid plans.
 
 
 1. Gender Logic
@@ -779,6 +763,18 @@ EXAMPLES:
   "insight": "This full body intro helps build base strength and coordination. Don’t rush reps learn the patterns and breathe through each set."
 }
 
+5. Glute Growth (Female) — Planet Fitness
+{
+  "title": "Glute Activation Day",
+  "exercises": [
+    "Smith Machine Hip Thrusts • 4x12",
+    "Dumbbell RDLs • 3x10–12",
+    "Cable Kickbacks • 3x15",
+    "Glute Bridges (machine) • 3 sets to failure"
+  ],
+  "insight": "Keep constant tension throughout every rep especially on kickbacks and thrusts. Your glutes respond best to pause and squeeze."
+}
+
 6. Powerbuilding — Full Gym
 {
   "title": "Push Strength + Volume",
@@ -831,15 +827,8 @@ EXAMPLES:
   ],
   "insight": "No pounding, no impact — just clean cardiovascular work. Burn calories without pain. Low stress, high payoff."
 }
-{
-  "Wednesday": {
-    "title": "Planet Sweat",
-    "exercises": [
-      "Stairmaster • 25 minutes, steady-state pace",
-      "Arc Trainer • 10-minute cooldown"
-    ],
-    "insight": "This session is designed to elevate your heart rate, burn calories, and accelerate fat loss without joint stress."
-  },
+
+
 
 If the day is a rest day, return:
 {
