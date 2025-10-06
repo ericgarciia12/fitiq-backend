@@ -870,7 +870,6 @@ If the day is a rest day, return:
     return finalPlan;
   }
 
-
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -903,18 +902,7 @@ If the day is a rest day, return:
       parsed = JSON.parse(cleaned);
     }
 
-       // ✅ Import your vaults
-    const { recoveryVaults } = require("./recoveryVault"); // adjust path
-
-    // ✅ Build full week plan with forced rest days
-    const finalPlan = buildFullWeek(parsed, userInfo.restPref || [], recoveryVaults);
-
-    // ✅ Log the final plan so you can see it in terminal
-    console.log("✅ Final Plan:", finalPlan);
-
-    // ✅ Return patched plan to the frontend
-    return res.json(finalPlan);
-
+    return res.json(parsed);
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
