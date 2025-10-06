@@ -870,7 +870,47 @@ If the day is a rest day, return:
       parsed = JSON.parse(cleaned);
     }
 
-    return res.json(parsed);
+const { recoveryVaults } = require('./recoveryVault'); // adjust path
+
+const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const finalPlan = [];
+
+let workoutIndex = 0;
+let vaultIndex = 0;
+
+for (const day of daysOfWeek) {
+  if (userInfo.restPref.includes(day)) {
+    finalPlan.push({
+      day,
+      type: 'rest',
+      title: 'Rest Day',
+      exercises: [],
+      vault: recoveryVaults[vaultIndex % recoveryVaults.length],
+    });
+    vaultIndex++;
+  } else {
+    const workout = parsed[workoutIndex] || {
+      title: 'Workout',
+      exercises: [],
+      note: 'GPT returned fewer workouts than expected',
+    };
+
+    finalPlan.push({
+      ...workout,
+      day,
+      type: 'workout',
+    });
+
+    workoutIndex++;
+  }
+}
+
+// ✅ Log for debug
+console.log("✅ Final patched 7-day plan:", finalPlan);
+
+// ✅ Send final plan with workouts + rest days
+return res.json(finalPlan);
+
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
