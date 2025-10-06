@@ -50,6 +50,21 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
+🚨 STRICT INSTRUCTION BLOCK — DO NOT IGNORE 🚨
+
+You must fully respect and obey the user’s time availability and recovery needs. The following parameters are non-negotiable:
+
+1. Days Available: ${userInfo.days}
+2. Preferred Rest Days: ${JSON.stringify(userInfo.restPref)}
+
+This means:
+- You MUST include exactly ${userInfo.restPref.length} rest days, placed on the exact days listed above.
+- You MUST include exactly ${userInfo.days} training days — no more, no less.
+- Do not skip any days in the week.
+- Do not guess which days are rest you must use the user's provided restPref array.
+
+
+This rule is FINAL and must be obeyed with zero deviation.
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
@@ -446,12 +461,6 @@ Notes:
 - GPT must adapt volume to user experience never gas out a beginner with 5 explosive sets.
 
 
-6. REST DAY CONTROL LOGIC:
-
-- 🧠 Rest Day Control Logic  
-- DO NOT create rest days. Only generate the exact number of training days the user requested.
-- If the user specifies ${userInfo.days} training days, you must return exactly ${userInfo.days} workout days. No more, no less.
-- DO NOT insert a Sweat Day, bonus cardio day, or "active recovery" unless the user explicitly asks for 6 or more training days.
 
 
 🔥 CARDIO INJECTION RULES — DO NOT IGNORE:
