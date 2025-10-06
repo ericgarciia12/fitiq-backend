@@ -50,19 +50,6 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT include any rest, cardio, mobility, or recovery days in your output. 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
-4. Rest Day Logic
-- Always respect the user's chosen rest days. These are non-negotiable days off that must remain free of workouts.
-- If a user selects Monday and Tuesday as rest days, the generated plan must avoid assigning any workouts on Monday or Tuesday. All training must be scheduled on the remaining days (e.g. Wednesday through Sunday).
-- If a user selects Friday, Saturday, and Sunday as rest days, then the entire workout plan must be condensed into Monday through Thursday only.
-- These rest days are chosen to match the user's real-life availability. Forcing workouts on rest days breaks consistency and will ruin trust in the FitIQ system.
-- Do not override rest days under any condition, even if the user has limited training days.
-- Before assigning any workout, filter each day of the week and verify it is not in the user’s rest day array.
-- Rest days must be explicitly marked in the plan output with: { rest: true, recovery: { ... } } using an appropriate Recovery Vault or rest label.
-- If the user chooses no rest days, default to a 6-day split with 1 light recovery day.
-- If the user chooses 4+ rest days (e.g. Mon, Tues, Fri, Sun), still generate a tight split using only the remaining days.
-- All weekly plan logic, split generation, and muscle targeting must happen strictly within the non-rest days. Never assign workouts outside of them.
-- If there are not enough days available to meet the user's goal, include a fallback logic warning or simplify the split — but never break the rest day rule.
-
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
@@ -395,10 +382,7 @@ General Guidelines:
 
 
 
-CARDIO DAY LIMITS:
-- You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
-- Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
-- Cardio is allowed only inside a full cardio day.
+
 
 5. ATHLETIC POWER MODE:
 
