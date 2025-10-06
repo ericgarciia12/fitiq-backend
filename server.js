@@ -86,6 +86,14 @@ These days must remain fully empty of workouts, cardio, or mobility — nothing 
 - You MUST return 7 total day objects every time — no exceptions.
 
 
+IMPORTANT NOTES:
+
+- You must deliver a full 7-day split: Monday through Sunday.
+- The number of **training days** must exactly match the user's availability (days).
+- The number of **rest days** must exactly match the user’s preferred rest days (restPref).
+- The specific days labeled as “Rest” must match the user’s preference (e.g., ['Wednesday', 'Sunday']). This is **non-negotiable**.
+- DO NOT guess or swap rest days — follow the provided restPref days **exactly**.
+- Never add extra rest days. Never forget rest days. Never guess.
 
 
 TRAINING STRUCTURE RULES:
@@ -211,6 +219,112 @@ planNotes.push(
 - Do not create additional Sweat Days or Cardio Days unless user explicitly wants 6 training days.
 - All gym logic, movement selection, and weekly structure must be fully contained within the user's requested ${userInfo.days} training days. Do not exceed this number or overwrite the user's preferred rest days: ${userInfo.restPref}.
 
+GLUTE MACHINE VARIETY POOL:
+
+- You have access to ALL the following glute exercises and machines. You must rotate from this pool across the week and avoid overusing the same few movements.
+
+Glute Exercise Pool:
+- Barbell Hip Thrust  
+- Cable Kickback  
+- Romanian Deadlift  
+- Smith Machine Glute Bridge  
+- Seated Glute Abduction  
+- Standing Abduction (Cable or Machine)  
+- Donkey Kicks (Cable or Bodyweight)  
+- Landmine RDL  
+- Step-Ups (Dumbbell or Smith Machine)  
+- Reverse Lunge (Crossover optional)  
+- Banded Crab Walk  
+- Frog Pumps  
+- Cable Pull-Through  
+- Bulgarian Split Squat (Glute Bias)  
+- Kettlebell Swing  
+- Single-Leg Glute Bridge  
+- Kickstand RDL  
+- Resistance Band Hip Thrust  
+- Hip Extension Machine  
+- Glute Focused Back Extension
+
+- You must not repeat more than 1 exercise between two glute-focused days. Rotate machines, angles, tempo, or tools.
+
+- All programming must match the user's gym setup. For example, Planet Fitness = no barbell, no landmine.
+
+- Use at least 3–5 different exercises per glute session — do not return the same combos twice in one week.
+
+Back Exercise Pool:
+- Lat Pulldown  
+- Seated Cable Row  
+- Barbell Bent Row  
+- Machine High Row  
+- Dumbbell Pullover  
+- Reverse-Grip Row  
+- Landmine Row  
+- Straight-Arm Cable Pulldown  
+- Chest-Supported Row  
+- T-Bar Row  
+
+You must rotate movements across all back sessions. Never repeat more than 1 exercise between days.
+
+
+Chest Exercise Pool:
+- Flat Bench Press (Only if barbell is available — not allowed at Planet Fitness)
+- Incline Dumbbell Press  
+- Machine Chest Press  
+- Pec Deck Fly  
+- High Cable Crossover  
+- Low Cable Crossover  
+- Decline Press  
+- Dumbbell Pullover  
+- Smith Machine Press  
+
+Use a unique combo for each chest day. No bar-for-bar copies.
+
+
+Arm Exercise Pool:
+- EZ Bar Curl  
+- Dumbbell Curl (Seated / Standing / Alt)  
+- Cable Rope Curl  
+- Preacher Curl  
+- Concentration Curl  
+- Skullcrushers  
+- Rope Pushdown  
+- Overhead Cable Extension  
+- Machine Dips  
+- Close-Grip Press  
+
+Rotate at least 3 new movements between any arm-focused days.
+
+
+Leg Machine Pool:
+- Leg Press  
+- Hack Squat (If machine is present)
+- Walking Lunge  
+- Bulgarian Split Squat  
+- Goblet Squat  
+- Sissy Squat  
+- Smith Machine Squat  
+- Seated Leg Curl  
+- Lying Hamstring Curl  
+- Nordic Ham Curl  
+- RDL (Barbell, Dumbbell, Cable)  
+- Landmine Row (Only for Commercial or Power gyms)
+- Barbell Deadlift (Only if gym allows barbells)
+
+Avoid back-to-back use of leg press + curls only. Add variety in angle, load, and machine.
+
+
+Cardio Machine Rotation:
+- Stairmaster  
+- Incline Treadmill  
+- Arc Trainer  
+- Elliptical  
+- Rowing Machine  
+- Recumbent Bike  
+- Upright Bike  
+
+You must rotate machines if multiple cardio days exist. Never assign treadmill twice per week.
+
+
 
 
 4. Add Cardio Based on Goal + Setup (GPT-Approved)
@@ -266,12 +380,12 @@ General Guidelines:
 
 
 
-
-
 CARDIO DAY LIMITS:
 - You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
 - Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
 - Cardio is allowed only inside a full cardio day.
+
+
 
 5. ATHLETIC POWER MODE:
 
@@ -340,6 +454,40 @@ Notes:
 - DO NOT insert a Sweat Day, bonus cardio day, or "active recovery" unless the user explicitly asks for 6 or more training days.
 
 
+🔥 CARDIO INJECTION RULES — DO NOT IGNORE:
+
+- You MUST include **at least 2 cardio sessions per week** if:
+
+   • The user’s goal includes “fat loss” OR “endurance”
+   • OR the user’s weight is over 180 lbs
+   • OR the user has a BMI over 28 (estimate if not provided)
+
+- One session MUST be a **dedicated cardio day** (no lifting), using machines only.
+- One session MUST be **post-lift cardio** (after strength training).
+
+- If the user gives no rest day preference, default cardio-only day to **Saturday or Wednesday**.
+
+- Do NOT skip cardio. This is mandatory for fat loss users. No creative liberty allowed.
+
+- Recommended machines (ranked): 
+   1. Stairmaster or StepMill
+   2. Incline Treadmill
+   3. Arc Trainer
+   4. Elliptical
+   5. Recumbent Bike
+
+- If Stairmaster is available, you should prioritize using it at least once per week for fat loss users. This machine is HIGHLY effective.
+
+- You may alternate cardio intensity:
+   • One steady-state session (25–35 minutes)
+   • One light HIIT or interval session (optional)
+
+- Do NOT assign two treadmill sessions in the same week. Rotate machines.
+
+- You may include a short explanation, like:  
+   “Stairmaster added to boost heart rate and calorie burn without stressing joints.”
+
+- Failure to include 2 cardio sessions for fat-loss or endurance users will result in invalid plans.
 
 
 1. Gender Logic
