@@ -838,8 +838,7 @@ If the day is a rest day, return:
 }`;
 
   try {
-  // ✅ Helper to build full week with exact rest days + vaults
-  function buildFullWeek(gptWorkouts, restPref = [], recoveryVaults = []) {
+     function buildFullWeek(gptWorkouts, restPref = [], recoveryVaults = []) {
     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const workoutsOnly = [...gptWorkouts];
     const finalPlan = [];
@@ -869,7 +868,6 @@ If the day is a rest day, return:
 
     return finalPlan;
   }
-
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -885,7 +883,7 @@ If the day is a rest day, return:
         temperature: 0.7,
       }),
     });
-
+    console.log("✅ Final Plan:", finalPlan);
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
 
@@ -902,7 +900,7 @@ If the day is a rest day, return:
       parsed = JSON.parse(cleaned);
     }
 
-    return res.json(parsed);
+    return res.json(finalPlan); 
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
