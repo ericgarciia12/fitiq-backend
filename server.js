@@ -380,12 +380,12 @@ General Guidelines:
 
 
 
+
+
 CARDIO DAY LIMITS:
 - You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
 - Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
 - Cardio is allowed only inside a full cardio day.
-
-
 
 5. ATHLETIC POWER MODE:
 
@@ -838,36 +838,47 @@ If the day is a rest day, return:
 }`;
 
   try {
-     function buildFullWeek(gptWorkouts, restPref = [], recoveryVaults = []) {
-    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    const workoutsOnly = [...gptWorkouts];
-    const finalPlan = [];
-    let vaultIndex = 0;
+    function buildFullWeek(gptWorkouts = [], restPref = [], recoveryVaults = []) {
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const workoutsOnly = Array.isArray(gptWorkouts) ? [...gptWorkouts] : [];
+  const finalPlan = [];
+  let vaultIndex = 0;
 
-    for (const day of daysOfWeek) {
-      if (restPref.includes(day)) {
-        const vault = recoveryVaults[vaultIndex % recoveryVaults.length];
-        vaultIndex++;
+  for (const day of daysOfWeek) {
+    if (restPref.includes(day)) {
+      const vault = recoveryVaults[vaultIndex % recoveryVaults.length] || {};
+      vaultIndex++;
 
+      finalPlan.push({
+        day,
+        type: 'rest',
+        title: 'Rest Day',
+        exercises: [],
+        vault,
+      });
+    } else {
+      const workout = workoutsOnly.shift();
+      if (workout && typeof workout === 'object') {
         finalPlan.push({
+          ...workout,
           day,
-          type: 'rest',
-          title: 'Rest Day',
-          exercises: [],
-          vault: vault,
+          type: 'workout',
         });
       } else {
-        const workout = workoutsOnly.shift(); // pull next workout regardless of what GPT said
         finalPlan.push({
           day,
-          ...workout,
           type: 'workout',
+          title: 'Workout',
+          exercises: [],
+          note: '⚠️ GPT did not return enough workouts',
         });
       }
     }
-
-    return finalPlan;
   }
+
+  return finalPlan;
+}
+
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -883,7 +894,7 @@ If the day is a rest day, return:
         temperature: 0.7,
       }),
     });
-    console.log("✅ Final Plan:", finalPlan);
+
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
 
@@ -900,7 +911,21 @@ If the day is a rest day, return:
       parsed = JSON.parse(cleaned);
     }
 
-    return res.json(finalPlan); 
+   const { recoveryVaults } = require('./recoveryVault');
+
+// Debug logs
+console.log("🛌 Requested rest days:", userInfo.restPref);
+console.log("🏋️ Parsed GPT workouts:", parsed);
+console.log("🧊 Vaults available:", recoveryVaults);
+
+// Build final 7-day plan
+const finalPlan = buildFullWeek(parsed, userInfo.restPref || [], recoveryVaults);
+
+// Debug final plan
+console.log("✅ FINAL PLAN TO RETURN:", finalPlan);
+
+return res.json(finalPlan); // not parsed anymore — return this
+
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
