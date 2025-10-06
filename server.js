@@ -838,33 +838,37 @@ If the day is a rest day, return:
 }`;
 
   try {
-// ✅ Add this above your route or inside the route before use
-function insertRestDaysIntoWeek(gptWorkouts, restPref = [], recoveryVaults = []) {
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  let vaultIndex = 0;
+  // ✅ Helper to build full week with exact rest days + vaults
+  function buildFullWeek(gptWorkouts, restPref = [], recoveryVaults = []) {
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const workoutsOnly = [...gptWorkouts];
+    const finalPlan = [];
+    let vaultIndex = 0;
 
-  const fullWeek = daysOfWeek.map(day => {
-    if (restPref.includes(day)) {
-      const vault = recoveryVaults[vaultIndex % recoveryVaults.length]; // rotate vaults
-      vaultIndex++;
+    for (const day of daysOfWeek) {
+      if (restPref.includes(day)) {
+        const vault = recoveryVaults[vaultIndex % recoveryVaults.length];
+        vaultIndex++;
 
-      return {
-        day,
-        type: 'rest',
-        title: 'Rest Day',
-        exercises: [],
-        vault: vault, // 👈 insert full vault object
-      };
+        finalPlan.push({
+          day,
+          type: 'rest',
+          title: 'Rest Day',
+          exercises: [],
+          vault: vault,
+        });
+      } else {
+        const workout = workoutsOnly.shift(); // pull next workout regardless of what GPT said
+        finalPlan.push({
+          day,
+          ...workout,
+          type: 'workout',
+        });
+      }
     }
 
-    // Find matching workout
-    const workout = gptWorkouts.find(w => w.day === day);
-    return workout || { day, type: 'unknown', note: 'GPT did not return workout for this day' };
-  });
-
-  return fullWeek;
-}
-
+    return finalPlan;
+  }
 
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -899,7 +903,18 @@ function insertRestDaysIntoWeek(gptWorkouts, restPref = [], recoveryVaults = [])
       parsed = JSON.parse(cleaned);
     }
 
-    return res.json(parsed);
+       // ✅ Import your vaults
+    const { recoveryVaults } = require("./recoveryVault"); // adjust path
+
+    // ✅ Build full week plan with forced rest days
+    const finalPlan = buildFullWeek(parsed, userInfo.restPref || [], recoveryVaults);
+
+    // ✅ Log the final plan so you can see it in terminal
+    console.log("✅ Final Plan:", finalPlan);
+
+    // ✅ Return patched plan to the frontend
+    return res.json(finalPlan);
+
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
