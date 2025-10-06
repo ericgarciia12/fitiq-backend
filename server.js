@@ -838,47 +838,6 @@ If the day is a rest day, return:
 }`;
 
   try {
-    function buildFullWeek(gptWorkouts = [], restPref = [], recoveryVaults = []) {
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const workoutsOnly = Array.isArray(gptWorkouts) ? [...gptWorkouts] : [];
-  const finalPlan = [];
-  let vaultIndex = 0;
-
-  for (const day of daysOfWeek) {
-    if (restPref.includes(day)) {
-      const vault = recoveryVaults[vaultIndex % recoveryVaults.length] || {};
-      vaultIndex++;
-
-      finalPlan.push({
-        day,
-        type: 'rest',
-        title: 'Rest Day',
-        exercises: [],
-        vault,
-      });
-    } else {
-      const workout = workoutsOnly.shift();
-      if (workout && typeof workout === 'object') {
-        finalPlan.push({
-          ...workout,
-          day,
-          type: 'workout',
-        });
-      } else {
-        finalPlan.push({
-          day,
-          type: 'workout',
-          title: 'Workout',
-          exercises: [],
-          note: '⚠️ GPT did not return enough workouts',
-        });
-      }
-    }
-  }
-
-  return finalPlan;
-}
-
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -911,21 +870,7 @@ If the day is a rest day, return:
       parsed = JSON.parse(cleaned);
     }
 
-   const { recoveryVaults } = require('./recoveryVault');
-
-// Debug logs
-console.log("🛌 Requested rest days:", userInfo.restPref);
-console.log("🏋️ Parsed GPT workouts:", parsed);
-console.log("🧊 Vaults available:", recoveryVaults);
-
-// Build final 7-day plan
-const finalPlan = buildFullWeek(parsed, userInfo.restPref || [], recoveryVaults);
-
-// Debug final plan
-console.log("✅ FINAL PLAN TO RETURN:", finalPlan);
-
-return res.json(finalPlan); // not parsed anymore — return this
-
+    return res.json(parsed);
   } catch (err) {
     console.error("🔥 GPT Plan Backend Error:", err);
     return res.status(500).json({ error: "Failed to generate smart plan." });
