@@ -838,6 +838,35 @@ If the day is a rest day, return:
 }`;
 
   try {
+// ✅ Add this above your route or inside the route before use
+function insertRestDaysIntoWeek(gptWorkouts, restPref = [], recoveryVaults = []) {
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  let vaultIndex = 0;
+
+  const fullWeek = daysOfWeek.map(day => {
+    if (restPref.includes(day)) {
+      const vault = recoveryVaults[vaultIndex % recoveryVaults.length]; // rotate vaults
+      vaultIndex++;
+
+      return {
+        day,
+        type: 'rest',
+        title: 'Rest Day',
+        exercises: [],
+        vault: vault, // 👈 insert full vault object
+      };
+    }
+
+    // Find matching workout
+    const workout = gptWorkouts.find(w => w.day === day);
+    return workout || { day, type: 'unknown', note: 'GPT did not return workout for this day' };
+  });
+
+  return fullWeek;
+}
+
+
+
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
