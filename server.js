@@ -893,6 +893,8 @@ If the day is a rest day, return:
   "exercises": [],
   "tip": ""
 }`;
+console.log("🧠 Sending Prompt to GPT:");
+console.log(prompt);
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
