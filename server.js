@@ -70,6 +70,43 @@ The point is coinstiency and respect to the users life. Who knows what they go t
 this is imporant so please do not override a user and please respect their choices. you are SO smart but you are not smarter than them. you must respect their choices and their life.
 overall your doing such a great job just please respect a user preferred rest days and their availability. Thank you so much for your help with this.
 also please do not get confused with the examples these are simply just examples to help you understand the logic.
+Rest Day Control Logic  please respect a user avalibilty and a users preferred rest days. This information is critical to the plan structure. 
+for example if a user selects 5 days but also selects 2 preferred rest days, you must still return 5 active days and 2 rest days. NO MATTER THE DAYS
+please match the days exactly as the user selected. no guessing or swapping of rest days. you do such a great job with the rest of the plan, please do not mess this up.
+it is imporant we get this right. so i will help you with many examples but do not get confused with examples these are simply just examples
+Example 1 if a user - Days Available: ${userInfo.days} days per week is only 4 and there - Preferred Rest Days: ${userInfo.restPref} are Friday, Saturday, Sunday YOU must respect them and give them Friday Saturday and Sunday off.
+Example 2 if a user - Days Available: ${userInfo.days} days per week is 5 and there - Preferred Rest Days: ${userInfo.restPref} are Satarday Sunday YOU must respect them and give them Saturday and Sunday off. We do not know what users go through so we must match to their everyday life
+Example 3 if a user - Days Available: ${userInfo.days} days per week is 6 and there - Preferred Rest Days: ${userInfo.restPref} are only Sunday YOU must respect them and give them Sunday off.
+Example 4 if a user - Days Available: ${userInfo.days} days per week is 3 and there - Preferred Rest Days: ${userInfo.restPref} are Tuesday Thursday Sunday YOU must respect them and give them Tuesday Thursday and Sunday off.
+Example 5 if a user - Days Available: ${userInfo.days} days per week is 5 and there - Preferred Rest Days: ${userInfo.restPref} are Wednesday Sunday YOU must respect them and give them Wednesday and Sunday off.
+Example 6 if a user - Days Available: ${userInfo.days} days per week is 4 and there - Preferred Rest Days: ${userInfo.restPref} are Monday Wednesday Friday YOU must respect them and give them Monday Wednesday and Friday off.
+Example 7 if a user - Days Available: ${userInfo.days} days per week is 7 and there - Preferred Rest Days: ${userInfo.restPref} are none YOU must respect them and give them no days off.
+Example 8 if a user - Days Available: ${userInfo.days} days per week is 3 and there - Preferred Rest Days: ${userInfo.restPref} are Monday Friday Saturday Sunday YOU must respect them and give them  Monday and Friday and Saturday and Sunday off.
+Example 9 if a user - Days Available: ${userInfo.days} days per week is 6 and there - Preferred Rest Days: ${userInfo.restPref} are Tuesday YOU must respect them and give them Tuesday off.
+Example 10 if a user - Days Available: ${userInfo.days} days per week is 5 and there - Preferred Rest Days: ${userInfo.restPref} are Monday Satarday YOU must respect them and give them Wednesday off.
+
+The point is coinstiency and respect to the users life. Who knows what they go through. You are not smarter than the user. You must respect their choices and their life.
+this is imporant so please do not override a user and please respect their choices. you are SO smart but you are not smarter than them. you must respect their choices and their life.
+overall your doing such a great job just please respect a user preferred rest days and their availability. Thank you so much for your help with this.
+also please do not get confused with the examples these are simply just examples to help you understand the logic.Rest Day Control Logic  please respect a user avalibilty and a users preferred rest days. This information is critical to the plan structure. 
+for example if a user selects 5 days but also selects 2 preferred rest days, you must still return 5 active days and 2 rest days. NO MATTER THE DAYS
+please match the days exactly as the user selected. no guessing or swapping of rest days. you do such a great job with the rest of the plan, please do not mess this up.
+it is imporant we get this right. so i will help you with many examples but do not get confused with examples these are simply just examples
+Example 1 if a user - Days Available: ${userInfo.days} days per week is only 4 and there - Preferred Rest Days: ${userInfo.restPref} are Friday, Saturday, Sunday YOU must respect them and give them Friday Saturday and Sunday off.
+Example 2 if a user - Days Available: ${userInfo.days} days per week is 5 and there - Preferred Rest Days: ${userInfo.restPref} are Satarday Sunday YOU must respect them and give them Saturday and Sunday off. We do not know what users go through so we must match to their everyday life
+Example 3 if a user - Days Available: ${userInfo.days} days per week is 6 and there - Preferred Rest Days: ${userInfo.restPref} are only Sunday YOU must respect them and give them Sunday off.
+Example 4 if a user - Days Available: ${userInfo.days} days per week is 3 and there - Preferred Rest Days: ${userInfo.restPref} are Tuesday Thursday Sunday YOU must respect them and give them Tuesday Thursday and Sunday off.
+Example 5 if a user - Days Available: ${userInfo.days} days per week is 5 and there - Preferred Rest Days: ${userInfo.restPref} are Wednesday Sunday YOU must respect them and give them Wednesday and Sunday off.
+Example 6 if a user - Days Available: ${userInfo.days} days per week is 4 and there - Preferred Rest Days: ${userInfo.restPref} are Monday Wednesday Friday YOU must respect them and give them Monday Wednesday and Friday off.
+Example 7 if a user - Days Available: ${userInfo.days} days per week is 7 and there - Preferred Rest Days: ${userInfo.restPref} are none YOU must respect them and give them no days off.
+Example 8 if a user - Days Available: ${userInfo.days} days per week is 3 and there - Preferred Rest Days: ${userInfo.restPref} are Monday Friday Saturday Sunday YOU must respect them and give them  Monday and Friday and Saturday and Sunday off.
+Example 9 if a user - Days Available: ${userInfo.days} days per week is 6 and there - Preferred Rest Days: ${userInfo.restPref} are Tuesday YOU must respect them and give them Tuesday off.
+Example 10 if a user - Days Available: ${userInfo.days} days per week is 5 and there - Preferred Rest Days: ${userInfo.restPref} are Monday Satarday YOU must respect them and give them Wednesday off.
+
+The point is coinstiency and respect to the users life. Who knows what they go through. You are not smarter than the user. You must respect their choices and their life.
+this is imporant so please do not override a user and please respect their choices. you are SO smart but you are not smarter than them. you must respect their choices and their life.
+overall your doing such a great job just please respect a user preferred rest days and their availability. Thank you so much for your help with this.
+also please do not get confused with the examples these are simply just examples to help you understand the logic.
 
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
