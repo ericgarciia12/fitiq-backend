@@ -51,6 +51,8 @@ DO NOT add recovery days, cardio-only days, active rest days, mobility days, or 
 - DO NOT insert additional "light days" or "active recovery" ideas.
 
 
+
+
 // 🧠 Rest Day Control Logic — FINAL PATCH
 
 - You are NOT allowed to create, invent, or insert your own rest days.
@@ -836,8 +838,6 @@ If the day is a rest day, return:
   "exercises": [],
   "tip": ""
 }`;
-console.log("🧠 Sending Prompt to GPT:");
-console.log(prompt);
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -858,7 +858,6 @@ console.log(prompt);
 
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
-console.log("🧪 GPT RAW Reply:", reply);
 
     if (!reply) {
       return res.status(500).json({ error: "No content received from GPT." });
