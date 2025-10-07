@@ -844,7 +844,7 @@ console.log(prompt);
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // ✅ safe + matches Render config
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
@@ -858,20 +858,54 @@ console.log(prompt);
 
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
-console.log("🧪 GPT RAW Reply:", reply);
+    console.log("🧪 GPT RAW Reply:", reply);
 
     if (!reply) {
       return res.status(500).json({ error: "No content received from GPT." });
     }
 
-    // Some replies are wrapped in ```json so we clean them
-    let parsed;
+    // Clean and parse GPT response
+    let workoutsOnly;
     try {
-      parsed = JSON.parse(reply);
+      workoutsOnly = JSON.parse(reply);
     } catch (e) {
       const cleaned = reply.replace(/```json|```/g, "").trim();
-      parsed = JSON.parse(cleaned);
+      workoutsOnly = JSON.parse(cleaned);
     }
+
+    // Build final 7-day plan
+    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const finalPlan = [];
+    const restPref = userInfo.rest || ["Sunday"]; // fallback if none
+    let workoutIndex = 0;
+    let vaultIndex = 0;
+
+    for (const day of daysOfWeek) {
+      if (restPref.includes(day)) {
+        // Insert a recovery vault on rest days
+        finalPlan.push({
+          day,
+          type: "rest",
+          title: "Rest Day",
+          exercises: [],
+          vault: recoveryVaults[vaultIndex % recoveryVaults.length]
+        });
+        vaultIndex++;
+      } else {
+        const workout = workoutsOnly[workoutIndex] || {
+          title: "Workout",
+          exercises: [],
+          insight: "Generic workout inserted due to missing data."
+        };
+        finalPlan.push({
+          ...workout,
+          day,
+          type: "workout"
+        });
+        workoutIndex++;
+      }
+    }
+
 
     return res.json(parsed);
   } catch (err) {
