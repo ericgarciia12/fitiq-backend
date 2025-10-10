@@ -247,11 +247,8 @@ Glute Exercise Pool:
 - Hip Extension Machine  
 - Glute Focused Back Extension
 
-- You must not repeat more than 1 exercise between two glute-focused days. Rotate machines, angles, tempo, or tools.
 
 - All programming must match the user's gym setup. For example, Planet Fitness = no barbell, no landmine.
-
-- Use at least 3–5 different exercises per glute session — do not return the same combos twice in one week.
 
 Back Exercise Pool:
 - Lat Pulldown  
@@ -384,10 +381,6 @@ General Guidelines:
 
 
 
-CARDIO DAY LIMITS:
-- You must stay within the user's ${userInfo.days} training days. Do not add bonus cardio days or Sweat Days unless the user explicitly wants 6 or more workout days per week.
-- Never insert cardio on Preferred Rest Days: ${userInfo.restPref}. These days must remain completely empty unless otherwise stated by the user.
-- Cardio is allowed only inside a full cardio day.
 
 5. ATHLETIC POWER MODE:
 
@@ -765,18 +758,6 @@ EXAMPLES:
   "insight": "This full body intro helps build base strength and coordination. Don’t rush reps learn the patterns and breathe through each set."
 }
 
-5. Glute Growth (Female) — Planet Fitness
-{
-  "title": "Glute Activation Day",
-  "exercises": [
-    "Smith Machine Hip Thrusts • 4x12",
-    "Dumbbell RDLs • 3x10–12",
-    "Cable Kickbacks • 3x15",
-    "Glute Bridges (machine) • 3 sets to failure"
-  ],
-  "insight": "Keep constant tension throughout every rep especially on kickbacks and thrusts. Your glutes respond best to pause and squeeze."
-}
-
 6. Powerbuilding — Full Gym
 {
   "title": "Push Strength + Volume",
@@ -828,6 +809,26 @@ EXAMPLES:
     "Elliptical • 10 min cooldown flow (no resistance push)"
   ],
   "insight": "No pounding, no impact — just clean cardiovascular work. Burn calories without pain. Low stress, high payoff."
+}
+11. Stair Mastery Flow (Glute & Lungs Burn)
+{
+  "title": "Stair Mastery Flow (Glute & Lungs Burn)",
+  "exercises": [
+    "StairMaster • 10 min steady pace warm-up (level 6–8)",
+    "StairMaster Intervals • 30 sec fast climb → 60 sec slow step x 5 rounds",
+    "Treadmill Incline Walk • 10 min at 10% incline, 3.2 mph, no hands"
+  ],
+  "insight": "This flow builds glute endurance and cardio resilience. The StairMaster hits hard — but you get stronger every minute. Lock in, breathe deep."
+}
+12. Fire & Flow Cardio (Stair + Core Burnout)
+{
+  "title": "Fire & Flow Cardio (Stair + Core Burnout)",
+  "exercises": [
+    "StairMaster Climb Pyramid • Level 7 → 10 → 7 over 15 min (climb intensity)",
+    "Row Machine • 2 min moderate pace x 3 rounds",
+    "Ab Circuit • 3 rounds: Plank (1 min), V-ups (15 reps), Russian Twists (20 total)"
+  ],
+  "insight": "A hybrid grind — legs climb, lungs fire, and core finishes the job. If you're sweating through this one, you're doing it right. Stay crisp."
 }
 
 
